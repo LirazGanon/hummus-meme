@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Puki Mems</title>
+</head>
+
+<body onload="onInit()">
+
+    <header></header>
+<main class="main-gallery center"></main>
+<main class="main-editor-container center hide">
+    <div class="main-canvas-container">
+        <canvas class="main-canvas"></canvas>
+    </div>
+    <section class="main-editor flex col">
+            <input type="file" class="file-input btn" oninput="onImgInput(event)">
+            <label>Your Text
+                <input type="text" class="mems-text" oninput="onTextInput(event)">
+            </label>
+            <input type="color" oninput="onColorInput(event)">
+            <button class="btn" onclick="increaseFont(true)">A+</button>
+            <button class="btn" onclick="increaseFont(false)">A-</button>
+            <button class="btn" onclick="onAddLine()" >ADD</button>
+            <button class="btn" onclick="onSwitchLines()" >Switch</button>
+            
+    
+    </section>
+</main>
+<footer></footer>
+
+    <!-- JavaScript -->
+    <script src="js/service/utils.js"></script>
+    <script src="js/service/storage-service.js"></script>
+    <script src="js/service/meme-service.js"></script>
+    <script src="js/gallery-controller.js"></script>
+    <script src="js/meme-controller.js"></script>
+
+  </body>
+</html>
