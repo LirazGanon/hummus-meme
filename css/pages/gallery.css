@@ -1,0 +1,137 @@
+/* HEADER */
+header.main-header {
+    font-size: 1.4rem;
+    height: 3.35em;
+    border-radius: 37px;
+    background-color: var(--clr4);
+    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+}
+
+/* LOGO */
+header .logo {
+    margin-inline-start: 80px;
+}
+
+/* nav */
+header .main-nav {
+    margin-inline-end: 245px;
+}
+
+.main-nav ul>*:not(:last-child) {
+    margin-inline-end: 60px;
+}
+
+header .nav-link {
+    display: inline-block;
+    padding: 3.5px 15px;
+}
+
+.main-nav .current-page-link {
+    background-color: var(--clr11);
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+    color: var(--clr2);
+    border-radius: 2em;
+}
+
+
+/* GALLERY */
+.gallery {
+    background-color: var(--clr17);
+    padding-bottom: 20px;
+}
+
+/* header header */
+.gallery .gallery-header {
+    gap: 15px;
+}
+
+/* header items */
+.gallery .gallery-header>* {
+
+    margin-top: 15px;
+    margin-bottom: 45px;
+
+}
+
+/* search-bar */
+.gallery-header .search-bar {
+    flex: 5;
+    margin-inline-start: 25px;
+    height: 3.1rem;
+    border-radius: 29px;
+    background-color: var(--clr15);
+}
+
+.gallery-header .search-bar input {
+    width: 90%;
+    font-size: 1.3rem;
+    background-color: transparent;
+    border: none;
+    color: var(--clr11);
+    margin-inline-start: 15px;
+}
+
+.gallery-header .search-bar ion-icon {
+    margin-inline-end: 15px;
+    font-size: 2rem;
+    color: var(--clr2);
+}
+
+.gallery-header .search-bar input:focus-visible {
+    outline: none
+}
+
+/* keywords */
+.gallery-header .keywords {
+    flex: 5;
+    text-align: center;
+    height: 3.1rem;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    background-color: hsla(0, 0%, 100%, 0.4);
+    gap: 10px;
+}
+
+.gallery-header .keywords a {
+    color: var(--clr11);
+}
+
+/* button */
+
+.gallery-header .show-more {
+    flex: 1;
+    margin-inline-end: 15px;
+    color: var(--clr11);
+    font-size: 1.125rem;
+    padding: 5px;
+}
+
+
+/* gallery images */
+.gallery-image-section{
+    width: 95%;
+    margin: auto;
+}
+.main-gallery {
+    margin: auto;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-auto-flow: dense;
+    gap: 15px;
+    border-radius: 10px;
+    height: 600px;
+    width: 95%;
+}
+
+.main-gallery .mems-img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    grid-column: span 2;
+    grid-row: span 2;
+    border-radius: 10px;
+}
+
+.main-gallery .mems-img:nth-child(6n + 1) {
+    grid-column: span 4;
+    grid-row: span 4;
+}

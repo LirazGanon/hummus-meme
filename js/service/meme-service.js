@@ -1,105 +1,109 @@
 'use strict'
 
-let gLineModel
-let gCurrLine = 0
-
-let gMem = {
+let gMeme = {
+    selectedLineIdx: 0,
     lines: []
 }
 
-function memsInit() {
-
-    gLineModel = {
-        text: 'Enter your text',
-        fontSize: 70,
-        fillColor: '#FFFF',
-    }
-
-    gMem.lines = [_createLine(gLineModel)]
-}
-
-function getMem() {
-    return gMem
-}
-
-function loadImageFromInput(ev, onImageReady) {
+function drewImageFromInput(ev, onImageReady) {
     const reader = new FileReader()
-
     reader.onload = function (event) {
-        gMem.img = new Image()
-        gMem.img.src = event.target.result
-        gMem.img.onload = () => {
-            setCanvasSize(gMem.img)
-            memsInit()
-            onImageReady()
-        }
+        setNewImg(event.target.result, onImageReady)
     }
     reader.readAsDataURL(ev.target.files[0])
 }
 
-function drawImgFromRemote({ src }, onImageReady) {
+function drawImgFromLocal({ src }, onImageReady, imgId) {
+    setNewImg(src, onImageReady, imgId)
+}
 
-    gMem.img = new Image()
-    gMem.img.src = src
-    gMem.img.onload = () => {
-        setCanvasSize(gMem.img)
-        memsInit()
-        onImageReady()
+function setNewImg(imgSrc, renderMeme, imgId = 'localImg') {
+    gMeme.img = new Image()
+    gMeme.img.src = imgSrc
+    gMeme.selectedImgId = imgId
+    gMeme.img.onload = () => {
+        setCanvasSize(gMeme.img)
+        linesInit()
+        renderMeme()
     }
 }
-function _createLine({ text, fontSize, fillColor }) {
+
+function linesInit() {
+    gMeme.lines = [_createLine()]
+}
+
+function addLine(renderMeme) {
+    gMeme.lines.push(_createLine())
+    renderMeme()
+}
+
+function _createLine() {
+    const fontSize = gMeme.img.width / 8
     return {
-        text,
+        text: '',
         fontSize,
-        fillColor,
+        fillColor: '#FFFF',
+        xOffset: gMeme.img.width / 2,
+        isDrag: false
     }
 }
+
+function switchLines(renderMeme) {
+    let { selectedLineIdx, lines } = gMeme
+    selectedLineIdx++
+    if (selectedLineIdx === lines.length) selectedLineIdx = 0
+    gMeme.selectedLineIdx = selectedLineIdx
+    setInputValue(lines[selectedLineIdx].text)
+    renderMeme()
+}
+
 
 function getLineYOffset(currLine, fontSize) {
+
     switch (currLine) {
         case 0:
-            return gElCanvas.height / 25 + fontSize
+            gMeme.lines[currLine].yOffset = gElCanvas.height / 25 + fontSize
+            break;
         case 1:
-            return gElCanvas.height - gElCanvas.height / 25
+            gMeme.lines[currLine].yOffset = gElCanvas.height - gElCanvas.height / 25
+            break;
         default:
-            return gElCanvas.height / 2 + fontSize / 3
+            gMeme.lines[currLine].yOffset = gElCanvas.height / 2 + fontSize / 3
     }
+    return currLine.yOffset
 }
 
-
-function setLineText(ev) {
-    gMem.lines[gCurrLine].text = ev.target.value
+function setText(ev, renderMeme, attribute) {
+    const { selectedLineIdx, lines } = gMeme
+    lines[selectedLineIdx][attribute] = ev.target.value
     renderMeme()
 }
 
-function setTextColor(ev) {
-
-    gMem.fillColor = ev.target.value
+function increaseFont(isTrue, renderMeme) {
+    const { selectedLineIdx, lines } = gMeme
+    lines[selectedLineIdx].fontSize *= isTrue ? 1.05 : 0.95
     renderMeme()
 }
 
-function increaseFont(isTrue) {
-    gMem.fontSize *= isTrue ? 1.05 : 0.95
-    renderMeme()
-}
 
-function addLine(cb) {
-    gMem.lines.push(_createLine(gLineModel))
-    cb()
-}
-
-function switchLines(cb) {
-    gCurrLine++
-    if (gCurrLine === gMem.lines.length) gCurrLine = 0
-    setInputValue(gMem.lines[gCurrLine].text)
-    cb()
-}
-
-function getImages() {
-    return ['8.jpg', '006.jpg', '5.jpg', '2.jpg', '003.jpg', '004.jpg', '005.jpg', '9.jpg', '12.jpg', '19.jpg',
-        'Ancient-Aliens.jpg', 'drevil.jpg', 'default.jpg', 'img2.jpg', 'img4.jpg', 'img5.jpg', 'img6.jpg', 'img11.jpg',
-        'img12.jpg', 'leo.jpg', 'meme1.jpg', 'patrick.jpg', 'putin.jpg', 'One-Does-Not-Simply.jpg']
+function getMeme() {
+    return gMeme
 }
 
 
+function isTextClicked(clickedPos) {
+    clickedPos.x
+    clickedPos.y
+    console.log(clickedPos.x)
+    // const { pos } = gCircle
+    const lineClicked = gMeme.lines.find(line => {
+        console.log(line.xOffset, (gElCanvas.width - line.width - line.xOffset))
+        return clickedPos.x > line.xOffset && clickedPos.x < line.xOffset
+    })
 
+    console.log(lineClicked)
+    // Calc the distance between two dots
+    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
+    //If its smaller then the radius of the circle we are inside
+    return distance <= gCircle.size
+}

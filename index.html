@@ -1,36 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
-    <title>Puki Mems</title>
+    <title>Puki Memes</title>
 </head>
 
 <body onload="onInit()">
 
-    <header></header>
-<main class="main-gallery center"></main>
-<main class="main-editor-container center hide">
-    <div class="main-canvas-container">
-        <canvas class="main-canvas"></canvas>
-    </div>
-    <section class="main-editor flex col">
-            <input type="file" class="file-input btn" oninput="onImgInput(event)">
-            <label>Your Text
-                <input type="text" class="mems-text" oninput="onTextInput(event)">
+    <header class="main-header flex space-between align-center">
+        <div class="logo">
+            PukiMeme
+        </div>
+
+        <nav class="main-nav">
+            <ul class="flex clean-list">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link current-page-link">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="gallery">
+        <header class="gallery-header flex align-center">
+            <div class="search-bar flex align-center">
+                <input type="text">
+                <ion-icon name="search-outline"></ion-icon>
+            </div>
+            <section class="keywords flex align-center justify-center">
+                <a href="#">Funny</a>
+                <a href="#">Anima</a>
+                <a href="#">Men</a>
+                <a href="#">Women</a>
+            </section>
+            <button class="btn show-more">More</button>
+        </header>
+
+        <section class="gallery-image-section scroller">
+            <div class="main-gallery center"></div>
+        </section>
+    </main>
+
+    <main class="main-editor-container hide">
+        <div class="main-canvas-container">
+            <canvas class="main-canvas"></canvas>
+        </div>
+        <section class="main-editor center">
+
+            <label class="text-input">
+                <input type="text" class="mems-text" placeholder="Enter your text" oninput="onTextInput(event)">
             </label>
-            <input type="color" oninput="onColorInput(event)">
-            <button class="btn" onclick="increaseFont(true)">A+</button>
-            <button class="btn" onclick="increaseFont(false)">A-</button>
-            <button class="btn" onclick="onAddLine()" >ADD</button>
-            <button class="btn" onclick="onSwitchLines()" >Switch</button>
-            
-    
-    </section>
-</main>
-<footer></footer>
+
+            <span title="Upload File" class="file" onclick="document.querySelector('.file-input').click()">
+                <ion-icon name="cloud-upload-outline">
+                    <input type="file" class="file-input" oninput="onImgInput(event)">
+                </ion-icon>
+            </span>
+
+            <span class="add-line" title="Add Line" onclick="onAddLine()">
+                <ion-icon name="add-circle-outline"></ion-icon>
+            </span>
+            <span class="switch" title="Switch Line" onclick="onSwitchLines()">
+                <ion-icon name="swap-horizontal-outline"></ion-icon>
+            </span>
+            <span class="delete" title="Delete Line" onclick="onSwitchLines()">
+                <ion-icon name="trash-outline"></ion-icon>
+            </span>
+
+            <section class="text-editor">
+
+                <div class="editor-top flex justify-center">
+
+                    <span class="" title="Increase Font" onclick="onIncreaseFont(true)">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </span>
+                    <span class="" onclick="onIncreaseFont(false)">
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </span>
+
+                    <span class="" title="align Left" onclick="onIncreaseFont(false)">
+                        <i class="fa-solid fa-align-left"></i>
+                    </span>
+                    <span class="" title="align Center" onclick="onIncreaseFont(false)">
+                        <i class="fa-solid fa-align-justify"></i>
+                    </span>
+
+                    <span class="" title="align Right" onclick="onIncreaseFont(false)">
+                        <i class="fa-solid fa-align-right"></i>
+                    </span>
+                </div>
+                <div class="editor-bottom flex justify-center">
+
+                    <input type="text" value="Impact">
+                    <span class="color-picker" title="Stroke color"
+                        onclick="document.querySelector('.color-input').click()">
+                        <i class="fa-solid fa-s">
+                            <input type="color" class="color-input" oninput="onColorInput(event)">
+                        </i>
+                    </span>
+                    <span class="color-picker" title="Select Color"
+                        onclick="document.querySelector('.color-input').click()">
+                        <ion-icon name="color-palette-outline">
+                            <input type="color" class="color-input" oninput="onColorInput(event)">
+                        </ion-icon>
+                    </span>
+                </div>
+
+            </section>
+
+            <section class="stickers">
+                sticker sticker sticker
+            </section>
+            <a href="#" class="big-btn share" onclick="onDownloadImg(this)" download="pukimeme.jpg">
+                <ion-icon name="share-social-outline"></ion-icon>Share
+            </a>
+
+            <a href="#" class="big-btn download" onclick="onDownloadImg(this)" download="pukimeme.jpg">
+                <ion-icon name="download-outline"></ion-icon> Download
+            </a>
+        </section>
+    </main>
+    <footer></footer>
+
+
+    <!-- ICONS -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/c1a9d640c4.js" crossorigin="anonymous"></script>
 
     <!-- JavaScript -->
     <script src="js/service/utils.js"></script>
@@ -39,5 +142,6 @@
     <script src="js/gallery-controller.js"></script>
     <script src="js/meme-controller.js"></script>
 
-  </body>
+</body>
+
 </html>
