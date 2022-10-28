@@ -66,7 +66,7 @@ function switchLines(renderMeme) {
     gMeme.selectedLineIdx = selectedLineIdx
     setInputValue(lines[selectedLineIdx].text)
     renderMeme()
-    focusTextLine()
+    if (gElCanvas.width > 550) focusTextLine()
 }
 
 
