@@ -38,12 +38,12 @@ function addLine(renderMeme) {
 }
 
 function _createLine() {
-    const fontSize = gMeme.img.width / 8
+    const fontSize = gElCanvas.width / 8
     return {
         text: '',
         fontSize,
         fillColor: '#FFFF',
-        xOffset: gMeme.img.width / 2,
+        xOffset: gElCanvas.width / 2,
         isDrag: false
     }
 }
@@ -65,12 +65,13 @@ function getLineYOffset(currLine, fontSize) {
             gMeme.lines[currLine].yOffset = gElCanvas.height / 25 + fontSize
             break;
         case 1:
-            gMeme.lines[currLine].yOffset = gElCanvas.height - gElCanvas.height / 25
+            gMeme.lines[currLine].yOffset = gElCanvas.height - (gElCanvas.height / 25) - fontSize / 2
             break;
         default:
-            gMeme.lines[currLine].yOffset = gElCanvas.height / 2 + fontSize / 3
+            gMeme.lines[currLine].yOffset = (gElCanvas.height / 2) + fontSize / 3
     }
-    return currLine.yOffset
+
+    return gMeme.lines[currLine].yOffset
 }
 
 function setText(ev, renderMeme, attribute) {
@@ -92,18 +93,23 @@ function getMeme() {
 
 
 function isTextClicked(clickedPos) {
-    clickedPos.x
-    clickedPos.y
-    console.log(clickedPos.x)
-    // const { pos } = gCircle
-    const lineClicked = gMeme.lines.find(line => {
-        console.log(line.xOffset, (gElCanvas.width - line.width - line.xOffset))
-        return clickedPos.x > line.xOffset && clickedPos.x < line.xOffset
-    })
 
-    console.log(lineClicked)
-    // Calc the distance between two dots
-    const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
-    //If its smaller then the radius of the circle we are inside
-    return distance <= gCircle.size
+    const lineClickedIdx = gMeme.lines.findIndex(line => clickedPos.x < (line.xOffset + line.width / 2) && clickedPos.x > (line.xOffset - line.width / 2) &&
+        clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
+    )
+
+    if (lineClickedIdx === -1) return
+
+    gMeme.selectedLineIdx = lineClickedIdx
+
+    const lineClicked = gMeme.lines[lineClickedIdx]
+
+    setInputValue(gMeme.lines[gMeme.selectedLineIdx].text)
+    return lineClicked
+}
+
+function moveText(dx, dy) {
+    gCurrDarg.xOffset += dx
+    gCurrDarg.yOffset += dy
+
 }

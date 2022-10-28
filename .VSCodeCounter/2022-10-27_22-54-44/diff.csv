@@ -1,0 +1,14 @@
+"filename", "language", "CSS", "JavaScript", "comment", "blank", "total"
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\css\basics\base.css", "CSS", 31, 0, 0, 5, 36
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\css\helpers\helpers.css", "CSS", 41, 0, 4, 11, 56
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\css\init\typography.css", "CSS", 20, 0, 0, 6, 26
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\css\init\variables.css", "CSS", 14, 0, 0, 1, 15
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\css\main.css", "CSS", 6, 0, 5, 5, 16
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\css\pages\gallery.css", "CSS", 104, 0, 10, 23, 137
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\css\pages\meme-editor.css", "CSS", 121, 0, 2, 24, 147
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\js\gallery-controller.js", "JavaScript", 0, -43, 0, -11, -54
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\js\meme-controller.js", "JavaScript", 0, -120, -2, -27, -149
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\js\service\meme-service.js", "JavaScript", 0, -89, -3, -19, -111
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\js\service\storage-service.js", "JavaScript", 0, -8, 0, -2, -10
+"c:\Users\liraz\OneDrive\שולחן העבודה\sprint2\js\service\utils.js", "JavaScript", 0, -6, 0, -2, -8
+"Total", "-", 337, -266, 16, 14, 101

@@ -1,12 +1,15 @@
 'use strict'
 let gElCanvas
 let gCtx
+let gCurrDarg
+let gStartPos
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 gElCanvas = document.querySelector('.main-canvas')
 gCtx = gElCanvas.getContext('2d')
 addMouseListeners()
 addTouchListeners()
+
 
 function renderMeme() {
     const { img, lines } = getMeme()
@@ -15,8 +18,8 @@ function renderMeme() {
 }
 
 function setCanvasSize({ width, height }) {
-    gElCanvas.width = width
-    gElCanvas.height = height
+    // gElCanvas.width = width
+    gElCanvas.height = (height * gElCanvas.width) / width
 }
 
 function onImgInput(ev) {
@@ -40,7 +43,7 @@ function onSwitchLines() {
 }
 
 function renderImg(img) {
-    gCtx.drawImage(img, 0, 0)
+    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 function onIncreaseFont(isTrue) {
@@ -61,9 +64,10 @@ function renderTextInput(textLines) {
         gCtx.letterSpacing = '5px'
 
         gCtx.font = `${fontSize}px Impact`
+
         gCtx.strokeText(text, xOffset, yOffset)
         gCtx.fillText(text, xOffset, yOffset)
-        
+
         if (gCtx.measureText(text).width > 600) {
             gMeme.lines[idx].fontSize = fontSize * 0.9
             renderMeme()
@@ -95,30 +99,28 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    console.log('Im from onDown')
     if (!isTextClicked(pos)) return
-    setCircleDrag(true)
+    gCurrDarg = isTextClicked(pos)
+    gCurrDarg.isDrag = true
     gStartPos = pos
-    document.body.style.cursor = 'grabbing'
 
 }
 
 function onMove(ev) {
-    console.log('Im from onMove')
-    const { isDrag } = getMeme()
-    if (!isDrag) return
     const pos = getEvPos(ev)
+    if (isTextClicked(pos)) gElCanvas.style.cursor = 'grab'
+    else gElCanvas.style.cursor = 'auto'
+    const isDrag = gCurrDarg ? gCurrDarg.isDrag : false
+    if (!isDrag) return
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
-    moveCircle(dx, dy)
+    moveText(dx, dy)
     gStartPos = pos
-    renderCanvas()
+    renderMeme()
 }
 
 function onUp() {
-    console.log('Im from onUp')
-    setCircleDrag(false)
-    document.body.style.cursor = 'grab'
+    gCurrDarg.isDrag = false
 }
 
 function getEvPos(ev) {
