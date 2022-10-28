@@ -42,10 +42,21 @@ function _createLine() {
     return {
         text: '',
         fontSize,
+        strokeStyle:'black',
         fillColor: '#FFFF',
+        textAlign: 'center',
+        font: 'Impact',
         xOffset: gElCanvas.width / 2,
         isDrag: false
     }
+}
+
+function setFontAndOffset() {
+    gMeme.lines.forEach(line => {
+        line.fontSize = gElCanvas.width / 8
+        line.xOffset = gElCanvas.width / 2
+        line.yOffset = 0
+    })
 }
 
 function switchLines(renderMeme) {
@@ -55,11 +66,11 @@ function switchLines(renderMeme) {
     gMeme.selectedLineIdx = selectedLineIdx
     setInputValue(lines[selectedLineIdx].text)
     renderMeme()
+    focusTextLine()
 }
 
 
 function getLineYOffset(currLine, fontSize) {
-
     switch (currLine) {
         case 0:
             gMeme.lines[currLine].yOffset = gElCanvas.height / 25 + fontSize
@@ -92,7 +103,7 @@ function getMeme() {
 }
 
 
-function isTextClicked(clickedPos) {
+function isTextClickHover(clickedPos) {
 
     const lineClickedIdx = gMeme.lines.findIndex(line => clickedPos.x < (line.xOffset + line.width / 2) && clickedPos.x > (line.xOffset - line.width / 2) &&
         clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
@@ -103,7 +114,7 @@ function isTextClicked(clickedPos) {
     gMeme.selectedLineIdx = lineClickedIdx
 
     const lineClicked = gMeme.lines[lineClickedIdx]
-
+    focusTextLine()
     setInputValue(gMeme.lines[gMeme.selectedLineIdx].text)
     return lineClicked
 }

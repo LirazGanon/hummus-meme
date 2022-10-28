@@ -15,4 +15,9 @@
     .main-canvas {
         width: 100%;
     }
+
+    .main-gallery .mems-img:nth-child(6n + 1) {
+        grid-column: span 4;
+        grid-row: span 4;
+    }
 }

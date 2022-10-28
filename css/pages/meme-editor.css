@@ -23,17 +23,13 @@
     border-radius: 30px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
-
-        'text text text text'
+         'text text text text'
         'switch add delete file'
         'editor editor editor editor'
         'stickers stickers stickers stickers'
         'share share download download'
     ;
 }
-
-
-
 
 /* EDITOR */
 .text-input{

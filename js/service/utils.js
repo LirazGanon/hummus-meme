@@ -5,3 +5,11 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor((max - min) * Math.random() + min);
 }
+
+function getPageWidth() {
+    return Math.max(
+      document.body.offsetWidth,
+      document.documentElement.offsetWidth,
+      document.documentElement.clientWidth
+    );
+  }

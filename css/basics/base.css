@@ -14,12 +14,11 @@ body {
     background-color: var(--clr15);
     }
 
-body > *:not(.full){
-    width: 90%;
-    margin: auto;
-    margin-top: 15px;
-}
-
+    body > *:not(.full){
+        margin: auto;
+        margin-top: 15px;
+    }
+    
 a {
     text-decoration: none;
     color: var(--clr11);

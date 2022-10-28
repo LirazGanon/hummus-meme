@@ -9,7 +9,15 @@ gElCanvas = document.querySelector('.main-canvas')
 gCtx = gElCanvas.getContext('2d')
 addMouseListeners()
 addTouchListeners()
+setCanvasWidth()
 
+window.addEventListener("resize", () => {
+    if (getMeme().lines.length === 0) return
+    setCanvasWidth()
+    setCanvasSize(gMeme.img)
+    setFontAndOffset()
+    renderMeme()
+});
 
 function renderMeme() {
     const { img, lines } = getMeme()
@@ -17,8 +25,14 @@ function renderMeme() {
     renderTextInput(lines)
 }
 
+function setCanvasWidth(){
+const pageWidth = getPageWidth()
+if (pageWidth > 1400) gElCanvas.width = 600
+else if (pageWidth < 748) gElCanvas.width = pageWidth * 0.95
+else gElCanvas.width = pageWidth * 0.45
+}
+
 function setCanvasSize({ width, height }) {
-    // gElCanvas.width = width
     gElCanvas.height = (height * gElCanvas.width) / width
 }
 
@@ -53,17 +67,16 @@ function onIncreaseFont(isTrue) {
 
 function renderTextInput(textLines) {
     textLines.forEach((line, idx) => {
-        let { fontSize, fillColor, text, yOffset, xOffset } = line
+        let { fontSize, fillColor, text, yOffset, xOffset,strokeStyle,textAlign,font } = line
         if (!yOffset) yOffset = getLineYOffset(idx, fontSize)
         if (!text) text = 'Enter Your Text'
-        gCtx.strokeStyle = 'black'
+        gCtx.strokeStyle = strokeStyle
         gCtx.fillStyle = fillColor
-        gCtx.textAlign = 'center'
+        gCtx.textAlign = textAlign
         gCtx.lineJoin = 'round'
         gCtx.lineWidth = 7
         gCtx.letterSpacing = '5px'
-
-        gCtx.font = `${fontSize}px Impact`
+        gCtx.font = `${fontSize}px ${font}`
 
         gCtx.strokeText(text, xOffset, yOffset)
         gCtx.fillText(text, xOffset, yOffset)
@@ -77,6 +90,7 @@ function renderTextInput(textLines) {
 }
 
 function setInputValue(val) {
+    document.querySelector('.mems-text').value = ''
     document.querySelector('.mems-text').value = val
 }
 
@@ -99,8 +113,8 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    if (!isTextClicked(pos)) return
-    gCurrDarg = isTextClicked(pos)
+    if (!isTextClickHover(pos)) return
+    gCurrDarg = isTextClickHover(pos)
     gCurrDarg.isDrag = true
     gStartPos = pos
 
@@ -108,7 +122,7 @@ function onDown(ev) {
 
 function onMove(ev) {
     const pos = getEvPos(ev)
-    if (isTextClicked(pos)) gElCanvas.style.cursor = 'grab'
+    if (isTextClickHover(pos)) gElCanvas.style.cursor = 'grab'
     else gElCanvas.style.cursor = 'auto'
     const isDrag = gCurrDarg ? gCurrDarg.isDrag : false
     if (!isDrag) return
@@ -120,7 +134,12 @@ function onMove(ev) {
 }
 
 function onUp() {
-    gCurrDarg.isDrag = false
+    if(!gCurrDarg) return
+    gCurrDarg.isDrag =  false
+}
+
+function focusTextLine(){
+    document.querySelector('.text-input').click()
 }
 
 function getEvPos(ev) {
@@ -139,3 +158,5 @@ function getEvPos(ev) {
     }
     return pos
 }
+
+
