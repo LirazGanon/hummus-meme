@@ -54,3 +54,20 @@
     border-radius: 13px;
     border: 1px solid #393737;
 }
+
+/* FONTS */
+.Impact{
+    font-family: Impact;
+}
+.David{
+    font-family: David;
+}
+.poppins{
+    font-family: poppins;
+}
+.cursive{
+    font-family: cursive;
+}
+.Verdana{
+    font-family: Verdana;
+}

@@ -85,20 +85,26 @@
                         <i class="fa-solid fa-arrow-down"></i>
                     </span>
 
-                    <span class="" title="align Left" onclick="onIncreaseFont(false)">
+                    <span class="" title="align Left" onclick="onAlignFont('left')">
                         <i class="fa-solid fa-align-left"></i>
                     </span>
-                    <span class="" title="align Center" onclick="onIncreaseFont(false)">
+                    <span class="" title="align Center" onclick="onAlignFont('center')">
                         <i class="fa-solid fa-align-justify"></i>
                     </span>
 
-                    <span class="" title="align Right" onclick="onIncreaseFont(false)">
+                    <span class="" title="align Right" onclick="onAlignFont('right')">
                         <i class="fa-solid fa-align-right"></i>
                     </span>
                 </div>
                 <div class="editor-bottom flex justify-center">
 
-                    <input type="text" value="Impact">
+                    <select class="font-select" onchange="onSetFont(this.value)">
+                        <option class="Impact" value="Impact">Impact</option>
+                        <option class="David" value="David">David</option>
+                        <option class="poppins" value="poppins">Poppins</option>
+                        <option class="cursive" value="cursive">Cursive</option>
+                        <option class="Verdana" value="Verdana">Verdana</option>
+                    </select>
                     <span class="color-picker" title="Stroke color"
                         onclick="document.querySelector('.color-input').click()">
                         <i class="fa-solid fa-s">

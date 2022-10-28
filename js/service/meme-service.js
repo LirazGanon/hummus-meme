@@ -42,11 +42,11 @@ function _createLine() {
     return {
         text: '',
         fontSize,
-        strokeStyle:'black',
+        strokeStyle: 'black',
         fillColor: '#FFFF',
         textAlign: 'center',
         font: 'Impact',
-        xOffset: gElCanvas.width / 2,
+        xOffset: getXoffset(),
         isDrag: false
     }
 }
@@ -54,7 +54,7 @@ function _createLine() {
 function setFontAndOffset() {
     gMeme.lines.forEach(line => {
         line.fontSize = gElCanvas.width / 8
-        line.xOffset = gElCanvas.width / 2
+        line.xOffset = getXoffset(line.textAlign)
         line.yOffset = 0
     })
 }
@@ -85,9 +85,27 @@ function getLineYOffset(currLine, fontSize) {
     return gMeme.lines[currLine].yOffset
 }
 
-function setText(ev, renderMeme, attribute) {
+function getXoffset(alignment) {
+    let x
+    switch (alignment) {
+        case 'left':
+            x = 5
+            break;
+        case 'right':
+            x = gElCanvas.width - 5
+            break;
+        default:
+            x = gElCanvas.width / 2
+            break;
+    }
+
+    return x
+}
+
+function setText(val, renderMeme, attribute) {
     const { selectedLineIdx, lines } = gMeme
-    lines[selectedLineIdx][attribute] = ev.target.value
+    lines[selectedLineIdx][attribute] = val
+    if(attribute==='textAlign') lines[selectedLineIdx].xOffset = getXoffset(val)
     renderMeme()
 }
 

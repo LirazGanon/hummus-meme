@@ -1,6 +1,6 @@
 
 .main-editor-container {
-    width: 95%;
+ 
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -29,6 +29,7 @@
         'stickers stickers stickers stickers'
         'share share download download'
     ;
+    width: 95%;
 }
 
 /* EDITOR */
@@ -91,6 +92,11 @@
     width: 80%;
     padding: 15px;
     border-radius: 15px;
+}
+
+.font-select{
+    flex-basis: 40%;
+    font-size: 2em;
 }
 
 .stickers {

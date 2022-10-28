@@ -41,11 +41,11 @@ function onImgInput(ev) {
 }
 
 function onTextInput(ev) {
-    setText(ev, renderMeme, 'text')
+    setText(ev.target.value, renderMeme, 'text')
 }
 
 function onColorInput(ev) {
-    setText(ev, renderMeme, 'fillColor')
+    setText(ev.target.value, renderMeme, 'fillColor')
 }
 
 function onAddLine() {
@@ -54,6 +54,14 @@ function onAddLine() {
 
 function onSwitchLines() {
     switchLines(renderMeme)
+}
+
+function onAlignFont(val){
+    setText(val, renderMeme, 'textAlign')
+}
+
+function onSetFont(val){
+    setText(val, renderMeme, 'font')
 }
 
 function renderImg(img) {
