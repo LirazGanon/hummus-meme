@@ -132,7 +132,7 @@ function isTextClickHover(clickedPos) {
     gMeme.selectedLineIdx = lineClickedIdx
 
     const lineClicked = gMeme.lines[lineClickedIdx]
-    focusTextLine()
+    if (gElCanvas.width > 550) focusTextLine()
     setInputValue(gMeme.lines[gMeme.selectedLineIdx].text)
     return lineClicked
 }
