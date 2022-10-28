@@ -55,7 +55,7 @@ function setFontAndOffset() {
     gMeme.lines.forEach(line => {
         line.fontSize = gElCanvas.width / 8
         line.xOffset = getXoffset(line.textAlign)
-        if (gElCanvas.width > 550) line.yOffset = 0
+        line.yOffset = 0
     })
 }
 
@@ -66,7 +66,7 @@ function switchLines(renderMeme) {
     gMeme.selectedLineIdx = selectedLineIdx
     setInputValue(lines[selectedLineIdx].text)
     renderMeme()
-    if (gElCanvas.width > 550) focusTextLine()
+    focusTextLine()
 }
 
 
@@ -132,7 +132,7 @@ function isTextClickHover(clickedPos) {
     gMeme.selectedLineIdx = lineClickedIdx
 
     const lineClicked = gMeme.lines[lineClickedIdx]
-    if (gElCanvas.width > 550) focusTextLine()
+    focusTextLine()
     setInputValue(gMeme.lines[gMeme.selectedLineIdx].text)
     return lineClicked
 }

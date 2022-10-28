@@ -108,14 +108,14 @@
                     <span class="color-picker" title="Stroke color"
                         onclick="document.querySelector('.stroke-input').click()">
                         <i class="fa-solid fa-s">
-                            <input type="color" class="stroke-input" oninput="onColorInput(event)">
+                            <input type="color" name="strokeStyle" class="stroke-input" oninput="onColorInput(event)">
                         </i>
                     </span>
                     <span class="color-picker" title="Select Color"
                         onclick="document.querySelector('.fill-input').click()">
                         <ion-icon name="color-palette-outline">
                         </ion-icon>
-                        <input type="color" class="fill-input" oninput="onColorInput(event)">
+                        <input type="fillColor" name="fill" class="fill-input" oninput="onColorInput(event)">
                     </span>
                 </div>
 

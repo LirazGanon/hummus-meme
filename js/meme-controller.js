@@ -45,7 +45,7 @@ function onTextInput(ev) {
 }
 
 function onColorInput(ev) {
-    setText(ev.target.value, renderMeme, 'fillColor')
+    setText(ev.target.value, renderMeme, ev.target.name)
 }
 
 function onAddLine() {
@@ -147,6 +147,7 @@ function onUp() {
 }
 
 function focusTextLine(){
+    if (gElCanvas.width < 550) return
     document.querySelector('.text-input').click()
 }
 
