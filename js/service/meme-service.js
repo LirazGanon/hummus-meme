@@ -55,7 +55,7 @@ function setFontAndOffset() {
     gMeme.lines.forEach(line => {
         line.fontSize = gElCanvas.width / 8
         line.xOffset = getXoffset(line.textAlign)
-        line.yOffset = 0
+        if (gElCanvas.width > 550) line.yOffset = 0
     })
 }
 

@@ -7,10 +7,9 @@ function getRandomInt(min, max) {
 }
 
 function getPageWidth() {
-  console.log(document.documentElement.clientWidth)
     return Math.max(
-      // document.body.offsetWidth,
-      // document.documentElement.offsetWidth,
+      document.body.offsetWidth,
+      document.documentElement.offsetWidth,
       document.documentElement.clientWidth
     );
   }
