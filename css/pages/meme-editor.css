@@ -1,14 +1,12 @@
 
-/* CANVAS */
 .main-editor-container {
-    width: 80%;
+    width: 95%;
     margin: auto;
-    height: 80%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
+/* CANVAS */
 .main-canvas-container {
     max-width: 600px;
     margin-left: auto;
@@ -16,7 +14,7 @@
 }
 
 .main-canvas {
-    width: 100%;
+    width: 95vw;
 }
 
 .main-editor {

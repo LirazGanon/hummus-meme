@@ -68,7 +68,7 @@ function renderTextInput(textLines) {
         gCtx.strokeText(text, xOffset, yOffset)
         gCtx.fillText(text, xOffset, yOffset)
 
-        if (gCtx.measureText(text).width > 600) {
+        if (gCtx.measureText(text).width > gElCanvas.width) {
             gMeme.lines[idx].fontSize = fontSize * 0.9
             renderMeme()
         }
