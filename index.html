@@ -70,7 +70,7 @@
             <span class="switch" title="Switch Line" onclick="onSwitchLines()">
                 <ion-icon name="swap-horizontal-outline"></ion-icon>
             </span>
-            <span class="delete" title="Delete Line" onclick="onSwitchLines()">
+            <span class="delete" title="Delete Line" onclick="onDeleteLine()">
                 <ion-icon name="trash-outline"></ion-icon>
             </span>
 
@@ -98,10 +98,10 @@
                 </div>
                 <div class="editor-bottom flex justify-center">
 
-                    <select class="font-select" onchange="onSetFont(this.value)">
+                    <select class="font-select" onchange="onSetFont(this)">
                         <option class="Impact" value="Impact">Impact</option>
                         <option class="David" value="David">David</option>
-                        <option class="poppins" value="poppins">Poppins</option>
+                        <option class="poppins" value="poppins-SemiBold">Poppins</option>
                         <option class="cursive" value="cursive">Cursive</option>
                         <option class="Verdana" value="Verdana">Verdana</option>
                     </select>
@@ -115,13 +115,13 @@
                         onclick="document.querySelector('.fill-input').click()">
                         <ion-icon name="color-palette-outline">
                         </ion-icon>
-                        <input type="fillColor" name="fill" class="fill-input" oninput="onColorInput(event)">
+                        <input type="color" name="fillColor" class="fill-input" oninput="onColorInput(event)">
                     </span>
                 </div>
 
             </section>
 
-            <section class="stickers">
+            <section class="stickers flex scroller">
                 sticker sticker sticker
             </section>
             <a href="#" class="big-btn share" onclick="onDownloadImg(this)" download="pukimeme.jpg">

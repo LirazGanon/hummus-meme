@@ -1,6 +1,5 @@
-
 .main-editor-container {
- 
+
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -8,7 +7,6 @@
 
 /* CANVAS */
 .main-canvas-container {
-    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -18,27 +16,29 @@
 }
 
 .main-editor {
-    height: 60%;
+    height: 80%;
     background-color: hsla(217, 25%, 94%, 0.11);
     border-radius: 30px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
-         'text text text text'
+        'text text text text'
         'switch add delete file'
         'editor editor editor editor'
         'stickers stickers stickers stickers'
         'share share download download'
     ;
     width: 95%;
+    padding: 20px 0;
 }
 
 /* EDITOR */
-.text-input{
+.text-input {
     width: 90%;
     margin: auto;
     text-align: center;
 }
-.mems-text{
+
+.mems-text {
     width: 90%;
     font-family: poppins-medium;
     color: var(--clr16);
@@ -49,12 +49,14 @@
     border: none;
     box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 var(--clr10);
 }
+
 .file {
     grid-area: file;
 }
 
 .text-input {
     grid-area: text;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .switch {
@@ -71,12 +73,12 @@
 
 .editor-top {
     grid-area: editor-top;
-    gap:50px
+    gap: 50px
 }
 
 .editor-bottom {
     grid-area: editor-bottom;
-    gap:50px
+    gap: 50px
 }
 
 .text-editor {
@@ -94,13 +96,20 @@
     border-radius: 15px;
 }
 
-.font-select{
+.font-select {
     flex-basis: 40%;
     font-size: 2em;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .stickers {
+    width: 95%;
+    height: 150px;
+    padding: 10px 0;
     grid-area: stickers;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    gap: 20px;
 }
 
 .share {
@@ -127,7 +136,12 @@
     cursor: pointer;
 }
 
-.main-editor .big-btn{
+.sticker-img {
+    max-height: 100px;
+    cursor: pointer;
+}
+
+.main-editor .big-btn {
     display: inline-block;
     color: var(--clr10);
     background-color: var(--clr3);
@@ -136,11 +150,13 @@
     box-shadow: 1px 6px 0 #165c9c, inset 0 5px 0 #ffffff36;
     border-radius: 15px;
 }
-.big-btn ion-icon{
+
+.big-btn ion-icon {
     font-size: 1.5em;
 }
 
-.stroke-input,.fill-input {
+.stroke-input,
+.fill-input {
     width: 0;
     height: 0;
     border: none;

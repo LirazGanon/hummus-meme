@@ -47,6 +47,7 @@
 
 .scroller::-webkit-scrollbar-track {
     background: #22252c;
+    border-radius: 13px;
 }
 
 .scroller::-webkit-scrollbar-thumb {
@@ -63,7 +64,7 @@
     font-family: David;
 }
 .poppins{
-    font-family: poppins;
+    font-family: poppins-SemiBold;
 }
 .cursive{
     font-family: cursive;

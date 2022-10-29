@@ -2,7 +2,8 @@
 
 let gMeme = {
     selectedLineIdx: 0,
-    lines: []
+    lines: [],
+    stickers: []
 }
 
 function drewImageFromInput(ev, onImageReady) {
@@ -17,6 +18,7 @@ function drawImgFromLocal({ src }, onImageReady, imgId) {
     setNewImg(src, onImageReady, imgId)
 }
 
+
 function setNewImg(imgSrc, renderMeme, imgId = 'localImg') {
     gMeme.img = new Image()
     gMeme.img.src = imgSrc
@@ -24,6 +26,21 @@ function setNewImg(imgSrc, renderMeme, imgId = 'localImg') {
     gMeme.img.onload = () => {
         setCanvasSize(gMeme.img)
         linesInit()
+        focusTextLine()
+        renderMeme()
+    }
+}
+
+function addSticker({ src }, renderMeme, StickerId) {
+    const sticker = new Image()
+    sticker.src = src
+    sticker.id = StickerId
+    sticker.xOffset = gElCanvas.width / 6
+    sticker.yOffset = gElCanvas.height / 6
+    const stickers = gMeme.stickers
+    stickers.unshift(sticker)
+    stickers[0].onload = () => {
+        renderStickerOnCanvas(stickers)
         renderMeme()
     }
 }
@@ -33,7 +50,11 @@ function linesInit() {
 }
 
 function addLine(renderMeme) {
-    gMeme.lines.push(_createLine())
+    const { lines } = gMeme
+    lines.push(_createLine())
+    gMeme.selectedLineIdx = lines.length - 1
+    setInputValue(lines[gMeme.selectedLineIdx].text)
+    focusTextLine()
     renderMeme()
 }
 
@@ -69,6 +90,15 @@ function switchLines(renderMeme) {
     focusTextLine()
 }
 
+function deleteLine(renderMeme) {
+    let { selectedLineIdx, lines } = gMeme
+    if (lines.length === 1) return
+    lines.splice(selectedLineIdx, 1)
+    selectedLineIdx = lines.length - 1
+    setInputValue(lines[selectedLineIdx].text)
+    gMeme.selectedLineIdx = selectedLineIdx
+    renderMeme()
+}
 
 function getLineYOffset(currLine, fontSize) {
     switch (currLine) {
@@ -105,7 +135,7 @@ function getXoffset(alignment) {
 function setText(val, renderMeme, attribute) {
     const { selectedLineIdx, lines } = gMeme
     lines[selectedLineIdx][attribute] = val
-    if(attribute==='textAlign') lines[selectedLineIdx].xOffset = getXoffset(val)
+    if (attribute === 'textAlign') lines[selectedLineIdx].xOffset = getXoffset(val)
     renderMeme()
 }
 
@@ -121,12 +151,9 @@ function getMeme() {
 }
 
 
-function isTextClickHover(clickedPos) {
+function getLineClickHover(clickedPos) {
 
-    const lineClickedIdx = gMeme.lines.findIndex(line => clickedPos.x < (line.xOffset + line.width / 2) && clickedPos.x > (line.xOffset - line.width / 2) &&
-        clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
-    )
-
+    const lineClickedIdx = findLineByPos(clickedPos)
     if (lineClickedIdx === -1) return
 
     gMeme.selectedLineIdx = lineClickedIdx
@@ -137,8 +164,74 @@ function isTextClickHover(clickedPos) {
     return lineClicked
 }
 
-function moveText(dx, dy) {
+function moveShape(dx, dy) {
     gCurrDarg.xOffset += dx
     gCurrDarg.yOffset += dy
 
+}
+
+function findLineByPos(clickedPos) {
+
+    return gMeme.lines.findIndex(line => {
+        switch (line.textAlign) {
+            case 'right':
+                return clickedPos.x < (line.xOffset) && clickedPos.x > (line.xOffset - line.width) &&
+                    clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
+            case 'left':
+                return clickedPos.x > (line.xOffset) && clickedPos.x < (line.width - line.xOffset) &&
+                    clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
+            default:
+                return clickedPos.x < (line.xOffset + line.width / 2) && clickedPos.x > (line.xOffset - line.width / 2) &&
+                    clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
+        }
+    })
+}
+
+
+function findStickerIdx(clickedPos) {
+    const Stickers = gMeme.stickers
+    return Stickers.findIndex(sticker => clickedPos.x > sticker.xOffset &&
+        clickedPos.x < sticker.xOffset + gElCanvas.width / 2 &&
+        clickedPos.y > sticker.yOffset && clickedPos.y < sticker.yOffset + gElCanvas.height / 2
+    )
+}
+
+
+function getStickerClick(clickedPos) {
+
+    const lineClickedIdx = findStickerIdx(clickedPos)
+    if (lineClickedIdx === -1) return
+
+    gMeme.selectedStickerIdx = lineClickedIdx
+
+    return gMeme.stickers[lineClickedIdx]
+}
+
+
+
+function getReactPos() {
+
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+    const reactPos = {
+        y: line.yOffset + 15,
+        yOffset: -line.fontSize - 15,
+        x: 0,
+        xOffset: 0
+    }
+
+    switch (line.textAlign) {
+        case 'right':
+            reactPos.x = line.xOffset + 10
+            reactPos.xOffset = gCtx.measureText(line.text).width - line.width - 20
+            break;
+        case 'left':
+            reactPos.x = line.xOffset - 10
+            reactPos.xOffset = line.width - gCtx.measureText(line.text).width + 20
+            break;
+        default:
+            reactPos.x = line.xOffset - line.width / 2 - 10
+            reactPos.xOffset = gCtx.measureText(line.text).width + line.width + 20
+    }
+    // console.log(reactPos)
+    return reactPos
 }

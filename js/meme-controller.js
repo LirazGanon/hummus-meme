@@ -2,7 +2,9 @@
 let gElCanvas
 let gCtx
 let gCurrDarg
+let gIsSelected = true
 let gStartPos
+const gStickers = getStickers()
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 gElCanvas = document.querySelector('.main-canvas')
@@ -10,6 +12,7 @@ gCtx = gElCanvas.getContext('2d')
 addMouseListeners()
 addTouchListeners()
 setCanvasWidth()
+renderStickersOnEditor()
 
 window.addEventListener("resize", () => {
     if (getMeme().lines.length === 0) return
@@ -20,20 +23,24 @@ window.addEventListener("resize", () => {
 });
 
 function renderMeme() {
-    const { img, lines } = getMeme()
+    const { img, lines, stickers } = getMeme()
     renderImg(img)
+    renderStickerOnCanvas(stickers)
     renderTextInput(lines)
 }
 
-function setCanvasWidth(){
-const pageWidth = getPageWidth()
-if (pageWidth > 1400) gElCanvas.width = 600
-else if (pageWidth < 748) gElCanvas.width = pageWidth * 0.95
-else gElCanvas.width = pageWidth * 0.45
+function setCanvasWidth() {
+    const pageWidth = getPageWidth()
+    if (pageWidth < 748) gElCanvas.width = pageWidth * 0.95
+    else gElCanvas.width = pageWidth * 0.40
 }
 
 function setCanvasSize({ width, height }) {
     gElCanvas.height = (height * gElCanvas.width) / width
+    if (gElCanvas.height > 825) {
+        gElCanvas.width = 610
+        setCanvasSize(gMeme.img)
+    }
 }
 
 function onImgInput(ev) {
@@ -56,16 +63,29 @@ function onSwitchLines() {
     switchLines(renderMeme)
 }
 
-function onAlignFont(val){
+function onDeleteLine() {
+    deleteLine(renderMeme)
+}
+
+function onAlignFont(val) {
     setText(val, renderMeme, 'textAlign')
 }
 
-function onSetFont(val){
-    setText(val, renderMeme, 'font')
+function onSetFont(el) {
+    el.style.fontFamily = el.value
+    setText(el.value, renderMeme, 'font')
 }
 
 function renderImg(img) {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function renderStickerOnCanvas(stickers) {
+    const revStickers = [...stickers].reverse()
+    revStickers.forEach(sticker => {
+        gCtx.drawImage(sticker, sticker.xOffset, sticker.yOffset, gElCanvas.width - gElCanvas.width / 2,
+            gElCanvas.height - gElCanvas.height / 2)
+    })
 }
 
 function onIncreaseFont(isTrue) {
@@ -75,19 +95,21 @@ function onIncreaseFont(isTrue) {
 
 function renderTextInput(textLines) {
     textLines.forEach((line, idx) => {
-        let { fontSize, fillColor, text, yOffset, xOffset,strokeStyle,textAlign,font } = line
+        let { fontSize, fillColor, text, yOffset, xOffset, strokeStyle, textAlign, font } = line
         if (!yOffset) yOffset = getLineYOffset(idx, fontSize)
         if (!text) text = 'Enter Your Text'
         gCtx.strokeStyle = strokeStyle
         gCtx.fillStyle = fillColor
         gCtx.textAlign = textAlign
+        gCtx.textBaseline = textAlign
         gCtx.lineJoin = 'round'
         gCtx.lineWidth = 7
         gCtx.letterSpacing = '5px'
         gCtx.font = `${fontSize}px ${font}`
-
         gCtx.strokeText(text, xOffset, yOffset)
         gCtx.fillText(text, xOffset, yOffset)
+        const rectPos = getReactPos()
+        // if (gIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
 
         if (gCtx.measureText(text).width > gElCanvas.width) {
             gMeme.lines[idx].fontSize = fontSize * 0.9
@@ -107,6 +129,25 @@ function onDownloadImg(elLink) {
     elLink.href = imgContent
 }
 
+function renderStickersOnEditor() {
+    const strHTML = gStickers.map(({ id, name }) => `
+    <img src="img/stickers/${name}" class="sticker-img" data-img-id="${id}" alt="${name}" onerror="removeImg(this)" onclick="onStickerClick(this,${id})" />
+    `).join(' ')
+    document.querySelector('.stickers').innerHTML = strHTML
+}
+
+function getStickers() {
+    let stickers = []
+    for (let i = 0; i < 8; i++) {
+        stickers.push({ id: i + 1, name: `${i + 1}.png` })
+    }
+    return stickers
+}
+
+function onStickerClick(elSticker, StickerId) {
+    addSticker(elSticker, renderMeme, StickerId)
+}
+
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
@@ -121,33 +162,40 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    if (!isTextClickHover(pos)) return
-    gCurrDarg = isTextClickHover(pos)
-    gCurrDarg.isDrag = true
-    gStartPos = pos
-
+    if (findStickerIdx(pos) !== -1) {
+        const stickerIdx = findStickerIdx(pos)
+        gCurrDarg = gMeme.stickers[stickerIdx]
+        gCurrDarg.isDrag = true
+        gStartPos = pos
+    }
+    else if (getLineClickHover(pos)) {
+        gCurrDarg = getLineClickHover(pos)
+        gCurrDarg.isDrag = true
+        gStartPos = pos
+    }
 }
 
 function onMove(ev) {
     const pos = getEvPos(ev)
-    if (isTextClickHover(pos)) gElCanvas.style.cursor = 'grab'
+    if (getLineClickHover(pos)) gElCanvas.style.cursor = 'grab'
+    else if (findStickerIdx(pos) !== -1) gElCanvas.style.cursor = 'grab'
     else gElCanvas.style.cursor = 'auto'
     const isDrag = gCurrDarg ? gCurrDarg.isDrag : false
     if (!isDrag) return
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
-    moveText(dx, dy)
+    moveShape(dx, dy)
     gStartPos = pos
     renderMeme()
 }
 
 function onUp() {
-    if(!gCurrDarg) return
-    gCurrDarg.isDrag =  false
+    if (!gCurrDarg) return
+    gCurrDarg.isDrag = false
 }
 
-function focusTextLine(){
-    if (gElCanvas.width < 550) return
+function focusTextLine() {
+    if (getPageWidth() < 550) return
     document.querySelector('.text-input').click()
 }
 
