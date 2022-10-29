@@ -47,10 +47,11 @@ header .nav-link:hover{
         background-color: hsla(0, 2%, 16%, 0.9);
         height: 100vh;
         border-inline-start: 1px solid rgba(204, 204, 204, 0.25);
-        min-width: 350px;
+        min-width: 300px;
         transform: translateX(180%);
         transition: transform .6s, box-shadow .6s;
         padding-top: 5.625rem;
+        z-index: 1;
     }
 
     header .main-nav ul {
