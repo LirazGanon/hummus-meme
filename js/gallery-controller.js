@@ -22,6 +22,7 @@ function onImgClick(elImg, imgId) {
     document.querySelector('.gallery').classList.add('hide')
     drawImgFromLocal(elImg, renderMeme, imgId)
     document.querySelector('.main-editor-container').classList.remove('hide')
+    document.querySelector('.current-page-link').classList.remove('current-page-link')
 }
 
 
@@ -51,3 +52,8 @@ function getRandomKeywords() {
 
     return randomKeyWords
 }
+
+function onToggleMenu(){
+            document.body.classList.toggle('menu-open')
+    }
+

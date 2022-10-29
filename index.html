@@ -10,7 +10,10 @@
 </head>
 
 <body onload="onInit()">
+    <!-- SCREEN -->
+    <div class="main-screen full" onclick="onToggleMenu()"></div>
 
+    <!-- HEADER -->
     <header class="main-header flex space-between align-center">
         <div class="logo">
             PukiMeme
@@ -22,12 +25,17 @@
                     <a href="index.html" class="nav-link current-page-link">Gallery</a>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link memes" onclick="onMemesClick();onToggleMenu()">Memes</a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link">About</a>
                 </li>
             </ul>
         </nav>
+        <ion-icon class="menu-btn" name="menu" onclick="onToggleMenu()" ></ion-icon>
     </header>
 
+    <!-- Gallery -->
     <main class="gallery">
         <header class="gallery-header flex align-center">
             <div class="search-bar flex align-center">
@@ -48,31 +56,33 @@
         </section>
     </main>
 
+    <!-- MEMES EDITOR -->
     <main class="main-editor-container hide">
         <div class="main-canvas-container">
             <canvas class="main-canvas" width="600px"></canvas>
         </div>
-        <section class="main-editor center">
+        <section class="main-editor flex col">
 
             <label class="text-input">
                 <input type="text" class="mems-text" placeholder="Enter your text" oninput="onTextInput(event)">
             </label>
 
-            <span title="Upload File" class="file" onclick="document.querySelector('.file-input').click()">
-                <ion-icon name="cloud-upload-outline">
-                    <input type="file" class="file-input" oninput="onImgInput(event)">
-                </ion-icon>
-            </span>
-
-            <span class="add-line" title="Add Line" onclick="onAddLine()">
-                <ion-icon name="add-circle-outline"></ion-icon>
-            </span>
-            <span class="switch" title="Switch Line" onclick="onSwitchLines()">
-                <ion-icon name="swap-horizontal-outline"></ion-icon>
-            </span>
-            <span class="delete" title="Delete Line" onclick="onDeleteLine()">
-                <ion-icon name="trash-outline"></ion-icon>
-            </span>
+            <section class="top-buttons">
+                <span class="add-line" title="Add Line" onclick="onAddLine()">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                </span>
+                <span class="switch" title="Switch Line" onclick="onSwitchLines()">
+                    <ion-icon name="swap-horizontal-outline"></ion-icon>
+                </span>
+                <span class="delete" title="Delete Line" onclick="onDeleteLine()">
+                    <ion-icon name="trash-outline"></ion-icon>
+                </span>
+                <span title="Upload File" class="file" onclick="document.querySelector('.file-input').click()">
+                    <ion-icon name="cloud-upload-outline">
+                        <input type="file" class="file-input" oninput="onImgInput(event)">
+                    </ion-icon>
+                </span>
+            </section>
 
             <section class="text-editor">
 
@@ -124,15 +134,28 @@
             <section class="stickers flex scroller">
                 sticker sticker sticker
             </section>
-            <a href="#" class="big-btn share" onclick="onDownloadImg(this)" download="pukimeme.jpg">
-                <ion-icon name="share-social-outline"></ion-icon>Share
-            </a>
 
-            <a href="#" class="big-btn download" onclick="onDownloadImg(this)" download="pukimeme.jpg">
-                <ion-icon name="download-outline"></ion-icon> Download
-            </a>
+            <section class="bottom-buttons">
+                <a href="#" class="big-btn share" onclick="onDownloadImg(this)" download="pukimeme.jpg">
+                    <ion-icon class="share" name="share-social-outline"></ion-icon> 
+                </a>
+
+                <a href="#" class="big-btn save" onclick="onSaveMeme()">
+                    <ion-icon class="save" name="save-outline"></ion-icon> 
+                </a>
+
+                <a href="#" class="big-btn download" onclick="onDownloadImg(this)" download="pukimeme.jpg">
+                    <ion-icon class="download" name="download-outline"></ion-icon> 
+                </a>
+            </section>
+
         </section>
     </main>
+
+    <!-- SAVED MEMES -->
+    <main class="saved-mems-container hide"></main>
+    </main>
+
     <footer></footer>
 
 
@@ -147,6 +170,7 @@
     <script src="js/service/meme-service.js"></script>
     <script src="js/gallery-controller.js"></script>
     <script src="js/meme-controller.js"></script>
+    <script src="js/saved-memes-controller.js"></script>
 
 </body>
 

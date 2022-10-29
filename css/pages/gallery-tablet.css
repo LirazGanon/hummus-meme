@@ -1,6 +1,8 @@
 
 @media (min-width: 768px) {
-
+    ion-icon.menu-btn{
+        display: none;
+    }
     body > *:not(.full){
         width: 90%;
     }

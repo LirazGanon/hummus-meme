@@ -8,7 +8,7 @@
         width: 80%;
         height: 80%;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 50% 50%;
         gap: 10px;
     }
 
@@ -20,4 +20,22 @@
         grid-column: span 4;
         grid-row: span 4;
     }
+
+    .editor-top,
+    .editor-bottom {
+        gap: 50px
+    }
+
+    .big-btn.share::after{
+        content: 'Share'
+    }
+
+    .big-btn.save::after{
+        content: 'Save'
+    }
+
+    .big-btn.download::after{
+        content: 'Download'
+    }
+    
 }

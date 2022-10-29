@@ -41,6 +41,7 @@ function setCanvasSize({ width, height }) {
         gElCanvas.width = 610
         setCanvasSize(gMeme.img)
     }
+    // document.querySelector('.main-canvas-container').width=gElCanvas.width
 }
 
 function onImgInput(ev) {
@@ -84,13 +85,28 @@ function renderStickerOnCanvas(stickers) {
     const revStickers = [...stickers].reverse()
     revStickers.forEach(sticker => {
         gCtx.drawImage(sticker, sticker.xOffset, sticker.yOffset, gElCanvas.width - gElCanvas.width / 2,
-            gElCanvas.height - gElCanvas.height / 2)
+        gElCanvas.height - gElCanvas.height / 2)
     })
 }
 
 function onIncreaseFont(isTrue) {
     increaseFont(isTrue, renderMeme)
+}
 
+function onDownloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL()
+    elLink.href = imgContent
+}
+
+function onSaveMeme(){
+saveMeme()
+}
+
+function onLoadSavedMemeToCanvas(savedMeme) {
+    document.querySelector('.main-editor-container').classList.remove('hide')
+    document.querySelector('.saved-mems-container').classList.add('hide')
+    document.querySelector('.current-page-link').classList.remove('current-page-link')
+    loadSavedMemeToCanvas(savedMeme)
 }
 
 function renderTextInput(textLines) {
@@ -124,10 +140,6 @@ function setInputValue(val) {
     document.querySelector('.mems-text').value = val
 }
 
-function onDownloadImg(elLink) {
-    const imgContent = gElCanvas.toDataURL()
-    elLink.href = imgContent
-}
 
 function renderStickersOnEditor() {
     const strHTML = gStickers.map(({ id, name }) => `

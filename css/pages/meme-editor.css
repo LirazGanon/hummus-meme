@@ -5,33 +5,31 @@
     flex-direction: column;
 }
 
+
 /* CANVAS */
 .main-canvas-container {
     margin-left: auto;
     margin-right: auto;
+
 }
 
 .main-canvas {
     width: 95vw;
+    border-radius: 10px;
 }
 
+/* EDITOR */
 .main-editor {
     height: 80%;
     background-color: hsla(217, 25%, 94%, 0.11);
     border-radius: 30px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-areas:
-        'text text text text'
-        'switch add delete file'
-        'editor editor editor editor'
-        'stickers stickers stickers stickers'
-        'share share download download'
-    ;
     width: 95%;
     padding: 20px 0;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto;
 }
 
-/* EDITOR */
 .text-input {
     width: 90%;
     margin: auto;
@@ -50,41 +48,39 @@
     box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 var(--clr10);
 }
 
-.file {
-    grid-area: file;
-}
+
 
 .text-input {
-    grid-area: text;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-.switch {
-    grid-area: switch;
+
+.main-editor .top-buttons>* {
+    font-size: 1.3em;
+    margin: 0 15px;
 }
 
-.add-line {
-    grid-area: add;
+.main-editor .bottom-buttons>* {
+    margin: 0 15px;
 }
-
-.delete {
-    grid-area: delete;
+.main-editor .top-buttons span {
+    display: inline-block;
+    height: 100%;
 }
 
 .editor-top {
     grid-area: editor-top;
-    gap: 50px
+    gap: 15px
 }
 
 .editor-bottom {
     grid-area: editor-bottom;
-    gap: 50px
+    gap: 20px
 }
 
 .text-editor {
     background-color: var(--clr1);
     flex-wrap: wrap;
-    grid-area: editor;
     display: grid;
     grid-template-areas:
         'editor-top'
@@ -98,8 +94,9 @@
 
 .font-select {
     flex-basis: 40%;
-    font-size: 2em;
+    font-size: 1.5em;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    border-radius: 6px;
 }
 
 .stickers {
@@ -112,13 +109,6 @@
     gap: 20px;
 }
 
-.share {
-    grid-area: share;
-}
-
-.download {
-    grid-area: download;
-}
 
 .main-editor ion-icon,
 .main-editor i {
@@ -153,6 +143,7 @@
 
 .big-btn ion-icon {
     font-size: 1.5em;
+    vertical-align: sub;
 }
 
 .stroke-input,

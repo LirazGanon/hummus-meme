@@ -1,4 +1,7 @@
 'use strict'
+const STORAGE_KEY = 'saved_memes'
+let gSavedMemes = []
+_loadMemesFromStorage()
 
 let gMeme = {
     selectedLineIdx: 0,
@@ -34,7 +37,7 @@ function setNewImg(imgSrc, renderMeme, imgId = 'localImg') {
 function addSticker({ src }, renderMeme, StickerId) {
     const sticker = new Image()
     sticker.src = src
-    sticker.id = StickerId
+    sticker.idx = StickerId
     sticker.xOffset = gElCanvas.width / 6
     sticker.yOffset = gElCanvas.height / 6
     const stickers = gMeme.stickers
@@ -207,8 +210,6 @@ function getStickerClick(clickedPos) {
     return gMeme.stickers[lineClickedIdx]
 }
 
-
-
 function getReactPos() {
 
     const line = gMeme.lines[gMeme.selectedLineIdx]
@@ -235,3 +236,56 @@ function getReactPos() {
     // console.log(reactPos)
     return reactPos
 }
+
+
+function saveMeme() {
+    gMeme.captureImg = gElCanvas.toDataURL() 
+    gSavedMemes.push(JSON.stringify(gMeme))
+    _saveMemesToStorage()
+}
+
+function _saveMemesToStorage() {
+    saveToStorage(STORAGE_KEY, gSavedMemes)
+}
+
+function _loadMemesFromStorage() {
+    const mems = loadFromStorage(STORAGE_KEY)
+    if (!mems || !mems.length) return
+    gSavedMemes = [...mems]
+}
+
+function loadSavedMemeToCanvas(savedMeme) {
+    const meme = JSON.parse(savedMeme)
+    const img = gImgs.find(img => img.id === meme.selectedImgId)
+    gMeme = meme
+    setSavedMeme(`img/gallery/${img.name}`, renderMeme, img.id)
+}
+
+function setSavedMeme(imgSrc, renderMeme, imgId) {
+    gMeme.img = new Image()
+    gMeme.img.src = imgSrc
+    gMeme.selectedImgId = imgId
+    gMeme.img.onload = () => {
+        setCanvasSize(gMeme.img)
+        focusTextLine()
+        addSavedStickers()
+        renderMeme()
+    }
+}
+
+function addSavedStickers() {
+    const savedStickers = []
+
+    for (let i = 0; i < gMeme.stickers.length; i++) {
+        const currSticker = gMeme.stickers[i]
+        const foundSticker = gStickers.find(gSticker => gSticker.id === currSticker.idx)
+        const img = new Image()
+        img.src = `img/stickers/${foundSticker.name}`
+        img.idx = foundSticker.id
+        img.xOffset = currSticker.xOffset
+        img.yOffset = currSticker.yOffset
+        savedStickers.push(img)
+    }
+    gMeme.stickers = savedStickers
+}
+
