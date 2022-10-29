@@ -57,7 +57,7 @@
 
 .main-editor .top-buttons>* {
     font-size: 1.3em;
-    margin: 0 15px;
+    margin: 0 5px;
 }
 
 .main-editor .bottom-buttons>* {
@@ -87,7 +87,7 @@
         'editor-bottom'
     ;
     gap: 20px;
-    width: 80%;
+    width: 95%;
     padding: 15px;
     border-radius: 15px;
 }

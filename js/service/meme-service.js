@@ -239,7 +239,7 @@ function getReactPos() {
 
 
 function saveMeme() {
-    gMeme.captureImg = gElCanvas.toDataURL() 
+    gMeme.captureImg = gElCanvas.toDataURL()
     gSavedMemes.push(JSON.stringify(gMeme))
     _saveMemesToStorage()
 }
@@ -273,6 +273,7 @@ function setSavedMeme(imgSrc, renderMeme, imgId) {
     }
 }
 
+
 function addSavedStickers() {
     const savedStickers = []
 
@@ -289,3 +290,8 @@ function addSavedStickers() {
     gMeme.stickers = savedStickers
 }
 
+function shareOnFacebook() {
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg")
+    const encodedUploadedImgUrl = encodeURIComponent(imgDataUrl)
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${imgDataUrl}&t=${imgDataUrl}`, '_blank')
+}

@@ -12,6 +12,9 @@
         gap: 10px;
     }
 
+    .text-editor {
+        width: 80%;
+    }
     .main-canvas {
         width: 100%;
     }
@@ -20,7 +23,9 @@
         grid-column: span 4;
         grid-row: span 4;
     }
-
+    .main-editor .top-buttons>*{
+        margin: 0 15px;
+    }
     .editor-top,
     .editor-bottom {
         gap: 50px

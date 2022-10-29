@@ -77,6 +77,10 @@ function onSetFont(el) {
     setText(el.value, renderMeme, 'font')
 }
 
+function onShare(){
+    shareOnFacebook()
+}
+
 function renderImg(img) {
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
