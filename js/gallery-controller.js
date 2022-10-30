@@ -1,14 +1,11 @@
 'use strict'
-const gKeyWords = getKeyWords()
-const gImgs = getImages()
-const gKeywordSearchCountMap = 0
 
 function onInit() {
     renderGallery()
 }
 
-function renderGallery() {
-    const strHTML = gImgs.map(({ id, name }) => `
+function renderGallery(images = gImgs) {
+    const strHTML = images.map(({ id, name }) => `
     <img src="img/gallery/${name}" class="mems-img" data-img-id="${id}" alt="${name}" onerror="removeImg(this)" onclick="onImgClick(this,${id})" />
     `).join(' ')
     document.querySelector('.main-gallery').innerHTML = strHTML
@@ -19,41 +16,18 @@ function removeImg(el) {
 }
 
 function onImgClick(elImg, imgId) {
+    if (imgId === 0) document.querySelector('.file-input').click()
+    else drawImgFromLocal(elImg, renderMeme, imgId)
     document.querySelector('.gallery').classList.add('hide')
-    drawImgFromLocal(elImg, renderMeme, imgId)
     document.querySelector('.main-editor-container').classList.remove('hide')
     document.querySelector('.current-page-link').classList.remove('current-page-link')
 }
 
 
-function getImages() {
-    let images = []
-    for (let i = 0; i < 29; i++) {
-        images.push({ id: i + 1, name: `${i + 1}.jpg`, keywords: getRandomKeywords() })
-    }
-    return images
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open')
 }
 
-function getKeyWords() {
-    return [
-        'funny', 'cat', 'dog', 'love', 'politic', 'smart', 'happy', 'bad', 'animal'
-    ]
+function onSetFilterByTxt(txt) {
+    setFilterByTxt(txt, renderGallery)
 }
-
-function getRandomKeywords() {
-    const keywords = [...gKeyWords]
-    const randomKeyWords = []
-
-    for (let i = 0; i < 3; i++) {
-        const rndIdx = getRandomInt(0, keywords.length)
-        const currKeyword = keywords.splice(rndIdx, 1)
-        randomKeyWords.push(currKeyword)
-    }
-
-    return randomKeyWords
-}
-
-function onToggleMenu(){
-            document.body.classList.toggle('menu-open')
-    }
-

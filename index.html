@@ -46,7 +46,7 @@
     <main class="gallery">
         <header class="gallery-header flex align-center">
             <div class="search-bar flex align-center ">
-                <input class="unavailable" type="text">
+                <input type="text" oninput="onSetFilterByTxt(this.value)" placeholder="Type Funny, Cat..." />
                 <ion-icon name="search-outline"></ion-icon>
             </div>
             <section class="keywords flex align-center justify-center ">
@@ -189,6 +189,7 @@
     <!-- JavaScript -->
     <script src="js/service/utils.js"></script>
     <script src="js/service/storage-service.js"></script>
+    <script src="js/service/gallery-service.js"></script>
     <script src="js/service/meme-service.js"></script>
     <script src="js/service/upload-service.js"></script>
     <script src="js/gallery-controller.js"></script>
