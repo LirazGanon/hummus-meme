@@ -13,23 +13,27 @@ body {
     color: var(--clr11);
     background-color: var(--clr15);
     z-index: -2;
-    }
+}
 
-    body > *:not(.full){
-        margin: auto;
-        margin-top: 15px;
-    }
-    
+body>*:not(.full) {
+    margin: auto;
+    margin-top: 15px;
+}
+
 a {
     text-decoration: none;
     color: var(--clr11);
 }
 
-.btn{
+.btn {
     border-radius: 2em;
     background-color: var(--clr11);
     background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
     box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
     border: none;
     cursor: pointer;
+}
+
+.unavailable {
+    cursor: not-allowed;
 }
