@@ -9,8 +9,9 @@ function uploadImg() {
       // Encode the instance of certain characters in the url
       const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
       console.log(encodedUploadedImgUrl)
-      document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
+      document.querySelector('.user-msg').innerHTML = `Your photo is available here:<br> ${uploadedImgUrl}`
       // Create a link that on click will make a post in facebook with the image we uploaded
+      document.querySelector('.main-editor').style.height = '80vh';
       document.querySelector('.share-container').innerHTML = `
           <a class="fb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
              Share on Facebook   
