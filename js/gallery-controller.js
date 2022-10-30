@@ -28,7 +28,7 @@ function onImgClick(elImg, imgId) {
 
 function getImages() {
     let images = []
-    for (let i = 0; i < 26; i++) {
+    for (let i = 0; i < 29; i++) {
         images.push({ id: i + 1, name: `${i + 1}.jpg`, keywords: getRandomKeywords() })
     }
     return images

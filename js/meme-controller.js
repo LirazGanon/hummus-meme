@@ -78,7 +78,7 @@ function onSetFont(el) {
 }
 
 function onShare(){
-    shareOnFacebook()
+    uploadImg()
 }
 
 function renderImg(img) {
@@ -154,7 +154,7 @@ function renderStickersOnEditor() {
 
 function getStickers() {
     let stickers = []
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 14; i++) {
         stickers.push({ id: i + 1, name: `${i + 1}.png` })
     }
     return stickers

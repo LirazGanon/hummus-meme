@@ -12,6 +12,7 @@ body {
     font-family: poppins, sans-serif;
     color: var(--clr11);
     background-color: var(--clr15);
+    z-index: -2;
     }
 
     body > *:not(.full){

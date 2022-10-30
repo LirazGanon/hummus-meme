@@ -16,7 +16,7 @@
     <!-- HEADER -->
     <header class="main-header flex space-between align-center">
         <div class="logo">
-            PukiMeme
+            Puki<span>Meme</span>
         </div>
 
         <nav class="main-nav">
@@ -25,14 +25,14 @@
                     <a href="index.html" class="nav-link current-page-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link memes" onclick="onMemesClick();onToggleMenu()">Memes</a>
+                    <a href="#" class="nav-link memes" onclick="onMemesClick()">Memes</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link about" onclick="onAboutClick()">About</a>
                 </li>
             </ul>
         </nav>
-        <ion-icon class="menu-btn" name="menu" onclick="onToggleMenu()" ></ion-icon>
+        <ion-icon class="menu-btn" name="menu" onclick="onToggleMenu()"></ion-icon>
     </header>
 
     <!-- Gallery -->
@@ -137,18 +137,21 @@
 
             <section class="bottom-buttons">
                 <a href="#" class="big-btn share" onclick="onShare()">
-                    <ion-icon class="share" name="share-social-outline"></ion-icon> 
+                    <ion-icon class="share" name="share-social-outline"></ion-icon>
                 </a>
 
                 <a href="#" class="big-btn save" onclick="onSaveMeme()">
-                    <ion-icon class="save" name="save-outline"></ion-icon> 
+                    <ion-icon class="save" name="save-outline"></ion-icon>
                 </a>
 
                 <a href="#" class="big-btn download" onclick="onDownloadImg(this)" download="pukimeme.jpg">
-                    <ion-icon class="download" name="download-outline"></ion-icon> 
+                    <ion-icon class="download" name="download-outline"></ion-icon>
                 </a>
             </section>
-
+            <div class="share-msg">
+                <p class="user-msg"></p>
+                <div class="share-container"></div>
+            </div>
         </section>
     </main>
 
@@ -156,7 +159,19 @@
     <main class="saved-mems-container hide"></main>
     </main>
 
-    <footer></footer>
+    <!-- ABOUT -->
+    <main class="main-about hide">
+        <img src="img/main/liraz.png" alt="">
+        <section class="about-text">
+            <h1>Hi my name is Liraz</h1>
+            <p>I'm a student of Full Stack Development bootcamp at Coding Academy</p>
+            <p>I enjoy to code and cook and really love to speak at Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Consequuntur harum dolor ex optio. Assumenda sequi consectetur similique, ex atque sunt at.
+                Sapiente minima, dignissimos in corporis veritatis minus quidem omnis.</p>
+        </section>
+    </main>
+    <!-- FOOTER -->
+    <footer class="main-footer full">Coffee right <i class="fa-solid fa-mug-saucer"></i> 2022</footer>
 
 
     <!-- ICONS -->
@@ -168,9 +183,11 @@
     <script src="js/service/utils.js"></script>
     <script src="js/service/storage-service.js"></script>
     <script src="js/service/meme-service.js"></script>
+    <script src="js/service/upload-service.js"></script>
     <script src="js/gallery-controller.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/saved-memes-controller.js"></script>
+    <script src="js/about-controller.js"></script>
 
 </body>
 

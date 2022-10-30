@@ -249,9 +249,13 @@ function _saveMemesToStorage() {
 }
 
 function _loadMemesFromStorage() {
-    const mems = loadFromStorage(STORAGE_KEY)
-    if (!mems || !mems.length) return
-    gSavedMemes = [...mems]
+    let mems = loadFromStorage(STORAGE_KEY)
+    if (!mems || !mems.length) {
+        mems = getDefaultMems()
+        mems.forEach(meme => gSavedMemes.push(JSON.stringify(meme)))
+        return
+    }
+    gSavedMemes = mems
 }
 
 function loadSavedMemeToCanvas(savedMeme) {
@@ -288,10 +292,4 @@ function addSavedStickers() {
         savedStickers.push(img)
     }
     gMeme.stickers = savedStickers
-}
-
-function shareOnFacebook() {
-    const imgDataUrl = gElCanvas.toDataURL("image/jpeg")
-    const encodedUploadedImgUrl = encodeURIComponent(imgDataUrl)
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${imgDataUrl}&t=${imgDataUrl}`, '_blank')
 }

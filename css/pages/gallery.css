@@ -11,6 +11,14 @@ header.main-header {
 /* LOGO */
 header .logo {
     margin-inline-start: 80px;
+    font-size: 1.7em;
+    font-family: poppins-semiBold;
+    color: #ff6a00;
+    text-shadow: rgb(43, 43, 43) 3px 0px 0px, rgb(43, 43, 43) 2.83487px 0.981584px 0px, rgb(43, 43, 43) 2.35766px 1.85511px 0px, rgb(43, 43, 43) 1.62091px 2.52441px 0px, rgb(43, 43, 43) 0.705713px 2.91581px 0px, rgb(43, 43, 43) -0.287171px 2.98622px 0px, rgb(43, 43, 43) -1.24844px 2.72789px 0px, rgb(43, 43, 43) -2.07227px 2.16926px 0px, rgb(43, 43, 43) -2.66798px 1.37182px 0px, rgb(43, 43, 43) -2.96998px 0.42336px 0px, rgb(43, 43, 43) -2.94502px -0.571704px 0px, rgb(43, 43, 43) -2.59586px -1.50383px 0px, rgb(43, 43, 43) -1.96093px -2.27041px 0px, rgb(43, 43, 43) -1.11013px -2.78704px 0px, rgb(43, 43, 43) -0.137119px -2.99686px 0px, rgb(43, 43, 43) 0.850987px -2.87677px 0px, rgb(43, 43, 43) 1.74541px -2.43999px 0px, rgb(43, 43, 43) 2.44769px -1.73459px 0px, rgb(43, 43, 43) 2.88051px -0.838247px 0px;
+}
+
+header .logo span {
+    color: #ff8c3a;
 }
 
 /* nav */
@@ -27,7 +35,7 @@ header .nav-link {
     padding: 3.5px 15px;
 }
 
-header .nav-link:hover{
+header .nav-link:hover {
     color: var(--clr5);
 }
 
@@ -39,7 +47,7 @@ header .nav-link:hover{
 }
 
 @media (max-width: 740px) {
-   
+
     header .main-nav {
         position: fixed;
         top: 0;
@@ -85,26 +93,26 @@ header .nav-link:hover{
 
     }
 
-    .main-nav .current-page-link{
+    .main-nav .current-page-link {
         background-color: transparent;
-        font-family:poppins-semiBold ;
+        font-family: poppins-semiBold;
     }
 
-    ion-icon.menu-btn{
+    ion-icon.menu-btn {
         font-size: 1.5em;
         color: var(--clr16);
-        background-color:var(--clr11);
+        background-color: var(--clr11);
         border-radius: 2em;
         padding: 7px;
         margin-inline-end: 20px;
         cursor: pointer;
     }
- 
-    
+
+
     body.menu-open .main-screen {
         opacity: 1;
         pointer-events: auto;
-    
+
     }
 
 
@@ -222,4 +230,18 @@ header .nav-link:hover{
 
 .main-gallery .mems-img:hover {
     scale: 1.1;
+}
+
+/* FOOTER */
+footer.main-footer {
+    font-size: 1rem;
+    background-color: var(--clr4);
+    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    margin-top: 15px;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: -1;
 }

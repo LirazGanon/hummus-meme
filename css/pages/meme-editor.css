@@ -21,7 +21,7 @@
 /* EDITOR */
 .main-editor {
     height: 80%;
-    background-color: hsla(217, 25%, 94%, 0.11);
+    background-color: rgb(67, 68, 70);
     border-radius: 30px;
     width: 95%;
     padding: 20px 0;
@@ -63,6 +63,7 @@
 .main-editor .bottom-buttons>* {
     margin: 0 15px;
 }
+
 .main-editor .top-buttons span {
     display: inline-block;
     height: 100%;
@@ -141,6 +142,10 @@
     border-radius: 15px;
 }
 
+.main-editor .big-btn:hover{
+    background-color: #165c9c;
+}
+
 .big-btn ion-icon {
     font-size: 1.5em;
     vertical-align: sub;
@@ -152,4 +157,14 @@
     height: 0;
     border: none;
     opacity: 0;
+}
+
+
+.fb-share-btn {
+    display: inline-block;
+    margin-top: 5px;
+    background-color: var(--clr2);
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 3px 0 #054d3a, inset 0 5px 0 #ffffff36;
 }

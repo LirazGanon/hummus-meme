@@ -1,0 +1,20 @@
+
+main.main-about{
+    display: flex;
+    align-items: center;
+    color: var(--clr13);
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+}
+
+.main-about img{
+    max-width: 350px;
+}
+
+
+@media (min-width: 768px) {
+    main.main-about{
+        flex-direction:row;
+    }
+}
