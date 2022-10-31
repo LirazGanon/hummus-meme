@@ -6,6 +6,7 @@ let gIsSelected = true
 let gStartPos
 const gStickers = getStickers()
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+let gCurrPageWidth = getPageWidth()
 
 gElCanvas = document.querySelector('.main-canvas')
 gCtx = gElCanvas.getContext('2d')
@@ -15,6 +16,9 @@ setCanvasWidth()
 renderStickersOnEditor()
 
 window.addEventListener("resize", () => {
+    console.log(gCurrPageWidth)
+    console.log(getPageWidth())
+    if (gCurrPageWidth === getPageWidth()) return
     if (getMeme().lines.length === 0) return
     setCanvasWidth()
     setCanvasSize(gMeme.img)
@@ -31,13 +35,13 @@ function renderMeme() {
 
 function setCanvasWidth() {
     const pageWidth = getPageWidth()
-    if (pageWidth < 748) gElCanvas.width = pageWidth * 0.95
+    if (pageWidth < 1000) gElCanvas.width = pageWidth * 0.95
     else gElCanvas.width = pageWidth * 0.40
 }
 
 function setCanvasSize({ width, height }) {
     gElCanvas.height = (height * gElCanvas.width) / width
-    if (gElCanvas.height > 825) {
+    if (gElCanvas.height > 780) {
         gElCanvas.width = 610
         setCanvasSize(gMeme.img)
     }
@@ -125,16 +129,17 @@ function renderTextInput(textLines) {
         gCtx.textAlign = textAlign
         gCtx.textBaseline = textAlign
         gCtx.lineJoin = 'round'
-        gCtx.lineWidth = 7
         gCtx.letterSpacing = '5px'
         gCtx.font = `${fontSize}px ${font}`
         if (idx === gMeme.selectedLineIdx) {
             const rectPos = getRectPos()
-            gCtx.setLineDash([15, 3, 3, 3]);
+            gCtx.lineWidth = 3
+            gCtx.setLineDash([10,10]);
             if (gIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
         }
         gCtx.strokeStyle = strokeStyle
         gCtx.setLineDash([]);
+        gCtx.lineWidth = 7
         gCtx.strokeText(text, xOffset, yOffset)
         gCtx.fillText(text, xOffset, yOffset)
 

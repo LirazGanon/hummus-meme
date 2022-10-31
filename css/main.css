@@ -11,6 +11,7 @@
 /* GALLERY */
 @import 'pages/gallery.css';
 @import 'pages/gallery-tablet.css';
+@import 'pages/gallery-desktop.css';
 
 /* SAVED MEMES */
 @import 'pages/saved-memes.css';
@@ -22,3 +23,4 @@
 /* MEME EDITOR */
 @import 'pages/meme-editor.css';
 @import 'pages/meme-editor-tablet.css';
+@import 'pages/meme-editor-desktop.css';

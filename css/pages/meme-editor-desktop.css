@@ -1,0 +1,17 @@
+@media (min-width: 1400px) {
+
+    .editor-top,
+    .editor-bottom {
+        gap: 50px
+    }
+
+    .main-editor .big-btn {
+        font-size: 1.3em;
+        margin: 0, 15px;
+    }
+
+    .stickers {
+        min-height: 150px;
+    }
+
+}

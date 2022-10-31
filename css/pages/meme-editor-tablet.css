@@ -1,6 +1,6 @@
-@media (min-width: 768px) {
+@media (min-width: 1000px) {
 
-     .main-editor-container {
+    .main-editor-container {
         width: 80%;
         height: 80%;
         display: grid;
@@ -15,6 +15,10 @@
     .main-canvas {
         width: 100%;
     }
+    .stickers {
+
+        min-height: 10px;
+    }
 
     .main-editor .top-buttons>* {
         margin: 0 15px;
@@ -22,7 +26,12 @@
 
     .editor-top,
     .editor-bottom {
-        gap: 50px
+        gap: 25px
+    }
+
+    .main-editor .big-btn {
+        font-size: 1em;
+        margin: 5px;
     }
 
     .big-btn.share::after {

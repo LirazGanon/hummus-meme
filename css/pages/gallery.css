@@ -288,8 +288,8 @@ header .nav-link:hover {
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     border-radius: 10px;
-    height: 400px;
     width: 95%;
+    height: 63vh;
 }
 
 .main-gallery>* {
