@@ -27,6 +27,7 @@ function renderKeywords(keywords) {
 }
 
 function onKeywordClick(keyword) {
+    document.querySelector('.search-input').value = keyword
     increaseCount(keyword)
 }
 function onMoreKeywords(elArrow) {
