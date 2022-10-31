@@ -225,6 +225,7 @@ header .nav-link:hover {
     transform: rotate(0);
     transition: transform 0.4s;
     font-size: 1.5em;
+    cursor: pointer;
 }
 
 
