@@ -97,8 +97,11 @@ function onIncreaseFont(isTrue) {
 }
 
 function onDownloadImg(elLink) {
+    gIsSelected = false
+    renderMeme()  
     const imgContent = gElCanvas.toDataURL()
     elLink.href = imgContent
+    gIsSelected = true
 }
 
 function onSaveMeme() {
@@ -125,10 +128,11 @@ function renderTextInput(textLines) {
         gCtx.lineWidth = 7
         gCtx.letterSpacing = '5px'
         gCtx.font = `${fontSize}px ${font}`
-        
-        const rectPos = getRectPos()
-        gCtx.setLineDash([15, 3, 3, 3]);
-        if (gIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
+        if (idx === gMeme.selectedLineIdx) {
+            const rectPos = getRectPos()
+            gCtx.setLineDash([15, 3, 3, 3]);
+            if (gIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
+        }
         gCtx.strokeStyle = strokeStyle
         gCtx.setLineDash([]);
         gCtx.strokeText(text, xOffset, yOffset)
@@ -196,9 +200,9 @@ function onDown(ev) {
 
 function onMove(ev) {
     const pos = getEvPos(ev)
-    if (getLineClickHover(pos)){
+    if (getLineClickHover(pos)) {
         gElCanvas.style.cursor = 'grab'
-        renderMeme()    
+        renderMeme()
     }
     else if (findStickerIdx(pos) !== -1) gElCanvas.style.cursor = 'grab'
     else gElCanvas.style.cursor = 'auto'
