@@ -41,7 +41,6 @@ function setCanvasSize({ width, height }) {
         gElCanvas.width = 610
         setCanvasSize(gMeme.img)
     }
-    // document.querySelector('.main-canvas-container').width=gElCanvas.width
 }
 
 function onImgInput(ev) {
@@ -77,7 +76,7 @@ function onSetFont(el) {
     setText(el.value, renderMeme, 'font')
 }
 
-function onShare(){
+function onShare() {
     uploadImg()
 }
 
@@ -89,7 +88,7 @@ function renderStickerOnCanvas(stickers) {
     const revStickers = [...stickers].reverse()
     revStickers.forEach(sticker => {
         gCtx.drawImage(sticker, sticker.xOffset, sticker.yOffset, gElCanvas.width - gElCanvas.width / 2,
-        gElCanvas.height - gElCanvas.height / 2)
+            gElCanvas.height - gElCanvas.height / 2)
     })
 }
 
@@ -102,8 +101,8 @@ function onDownloadImg(elLink) {
     elLink.href = imgContent
 }
 
-function onSaveMeme(){
-saveMeme()
+function onSaveMeme() {
+    saveMeme()
 }
 
 function onLoadSavedMemeToCanvas(savedMeme) {
@@ -118,7 +117,7 @@ function renderTextInput(textLines) {
         let { fontSize, fillColor, text, yOffset, xOffset, strokeStyle, textAlign, font } = line
         if (!yOffset) yOffset = getLineYOffset(idx, fontSize)
         if (!text) text = 'Enter Your Text'
-        gCtx.strokeStyle = strokeStyle
+        gCtx.strokeStyle = 'white'
         gCtx.fillStyle = fillColor
         gCtx.textAlign = textAlign
         gCtx.textBaseline = textAlign
@@ -126,10 +125,14 @@ function renderTextInput(textLines) {
         gCtx.lineWidth = 7
         gCtx.letterSpacing = '5px'
         gCtx.font = `${fontSize}px ${font}`
+        
+        const rectPos = getRectPos()
+        gCtx.setLineDash([15, 3, 3, 3]);
+        if (gIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
+        gCtx.strokeStyle = strokeStyle
+        gCtx.setLineDash([]);
         gCtx.strokeText(text, xOffset, yOffset)
         gCtx.fillText(text, xOffset, yOffset)
-        const rectPos = getReactPos()
-        // if (gIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
 
         if (gCtx.measureText(text).width > gElCanvas.width) {
             gMeme.lines[idx].fontSize = fontSize * 0.9

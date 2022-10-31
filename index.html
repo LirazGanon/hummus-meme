@@ -9,9 +9,9 @@
 
     <!-- FAVICON -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-<link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 
     <title>Puki Memes</title>
 </head>
@@ -21,41 +21,41 @@
     <div class="main-screen full" onclick="onToggleMenu()"></div>
 
     <!-- HEADER -->
-    <header class="main-header flex space-between align-center">
-        <div class="logo">
-            Puki<span>Meme</span>
-        </div>
+    <header class="main-header full">
+        <section class="header-content  flex space-between align-center">
 
-        <nav class="main-nav">
-            <ul class="flex clean-list">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link current-page-link">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link memes" onclick="onMemesClick()">Memes</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link about" onclick="onAboutClick()">About</a>
-                </li>
-            </ul>
-        </nav>
-        <ion-icon class="menu-btn" name="menu" onclick="onToggleMenu()"></ion-icon>
+            <div class="logo">
+                Puki<span>Meme</span>
+            </div>
+
+            <nav class="main-nav">
+                <ul class="flex clean-list">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link current-page-link">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link memes" onclick="onMemesClick()">Memes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link about" onclick="onAboutClick()">About</a>
+                    </li>
+                </ul>
+            </nav>
+            <ion-icon class="menu-btn" name="menu" onclick="onToggleMenu()"></ion-icon>
+        </section>
     </header>
 
     <!-- Gallery -->
     <main class="gallery">
         <header class="gallery-header flex align-center">
             <div class="search-bar flex align-center ">
-                <input type="text" oninput="onSetFilterByTxt(this.value)" placeholder="Type Funny, Cat..." />
+                <input type="text" oninput="onSetFilterByTxt(this.value)" placeholder="Try Funny, jQuery..." />
                 <ion-icon name="search-outline"></ion-icon>
             </div>
-            <section class="keywords flex align-center justify-center ">
-                <a class="unavailable" href="#">Funny</a>
-                <a class="unavailable" href="#">Anima</a>
-                <a class="unavailable" href="#">Men</a>
-                <a class="unavailable" href="#">Women</a>
+            <section class="keywords-container">
+                <section class="keywords flex align-center justify-center"></section>
+                <div class="open-arrow move-down" onclick="onMoreKeywords(this)"><ion-icon name="caret-down"></ion-icon></div>
             </section>
-            <button class="btn show-more unavailable">More</button>
         </header>
 
         <section class="gallery-image-section scroller">
@@ -160,7 +160,7 @@
                 <div class="share-container"></div>
             </div>
         </section>
-   
+
     </main>
 
     <!-- SAVED MEMES -->
@@ -171,8 +171,8 @@
     <main class="main-about hide">
         <img src="img/main/liraz.png" alt="">
         <section class="about-text">
-            <h1>Hi my name is Liraz</h1>
-            <p>I'm a student of Full Stack Development bootcamp at Coding Academy</p>
+            <h1>Hi! my name is Liraz</h1>
+            <p>I'm a student of Full Stack Development bootcamp at Coding Academy.</p>
             <p>I enjoy to code and cook and really love to speak at Lorem ipsum dolor sit amet consectetur adipisicing
                 elit. Consequuntur harum dolor ex optio. Assumenda sequi consectetur similique, ex atque sunt at.
                 Sapiente minima, dignissimos in corporis veritatis minus quidem omnis.</p>

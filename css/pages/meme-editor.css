@@ -3,6 +3,7 @@
     margin: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 
@@ -20,7 +21,7 @@
 
 /* EDITOR */
 .main-editor {
-    height: 70vh;
+    height: 80vh;
     background-color: rgb(67, 68, 70);
     border-radius: 30px;
     width: 95%;
@@ -101,8 +102,8 @@
 }
 
 .stickers {
-    width: 95%;
-    height: 150px;
+    width: 85%;
+    min-height: 150px;
     padding: 10px 0;
     grid-area: stickers;
     overflow-y: hidden;

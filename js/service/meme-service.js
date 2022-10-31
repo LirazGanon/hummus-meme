@@ -210,7 +210,7 @@ function getStickerClick(clickedPos) {
     return gMeme.stickers[lineClickedIdx]
 }
 
-function getReactPos() {
+function getRectPos() {
 
     const line = gMeme.lines[gMeme.selectedLineIdx]
     const reactPos = {
@@ -220,20 +220,22 @@ function getReactPos() {
         xOffset: 0
     }
 
+    const textWidth = line.text ? gCtx.measureText(line.text).width : gCtx.measureText('Enter your text').width
+
     switch (line.textAlign) {
         case 'right':
             reactPos.x = line.xOffset + 10
-            reactPos.xOffset = gCtx.measureText(line.text).width - line.width - 20
+            reactPos.xOffset = -textWidth - 20
             break;
         case 'left':
             reactPos.x = line.xOffset - 10
-            reactPos.xOffset = line.width - gCtx.measureText(line.text).width + 20
+            reactPos.xOffset = textWidth + 20
             break;
         default:
-            reactPos.x = line.xOffset - line.width / 2 - 10
-            reactPos.xOffset = gCtx.measureText(line.text).width + line.width + 20
+            reactPos.x = line.xOffset - textWidth / 2 - 10
+            reactPos.xOffset = textWidth + 20
     }
-    // console.log(reactPos)
+
     return reactPos
 }
 

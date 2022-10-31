@@ -1,7 +1,9 @@
 'use strict'
 
 const gImgs = getImages()
-const gKeywordSearchCountMap = 0
+const gKeywords = getAllKeywords()
+const gKeywordCountMap = gKeywords.map(keyword => ({ keyword, count: getRandomInt(0, 4) }))
+const gSelectedKeywords = getSelectedKeywords()
 
 function setFilterByTxt(txt, renderGallery) {
     if (!txt) {
@@ -9,286 +11,308 @@ function setFilterByTxt(txt, renderGallery) {
         return
     }
     const filteredImg = gImgs.filter(img => img.keywords.find(keyword => {
-            return keyword.toLocaleLowerCase().includes(txt.toLowerCase())
-
+        return keyword.toLocaleLowerCase().includes(txt.toLowerCase())
     }))
     renderGallery(filteredImg)
 }
 
+function getAllKeywords() {
+    let keywords = gImgs.map(img => img.keywords.join(' '))
+    let uniqueList = keywords.join(' ').split(' ')
+    uniqueList = [...new Set(uniqueList)]
+    return uniqueList
+}
 
-function getImages(){
-   return [
-    {
-        "id": 0,
-        "name": "0.png",
-        "keywords": [
-            "coding",
-            "funny",
-            "man",
-            "girl"
-        ]
-    },
+function getSelectedKeywords() {
+    const keywords = [...gKeywordCountMap]
+    const selectedKeywords = []
+    for (let i = 0; i < 5; i++) {
+        selectedKeywords.push(keywords.splice(getRandomInt(0, keywords.length), 1)[0])
+    }
+    return selectedKeywords
+}
+
+function increaseCount(keyword) {
+    const keywordClicked = gKeywordCountMap.find(item => item.keyword === keyword)
+    if (keywordClicked.count < 7) keywordClicked.count++
+    chooseKeywords()
+    setFilterByTxt(keyword, renderGallery)
+}
+
+function chooseKeywords() {
+    if (gIsAllKeywords) renderKeywords(gKeywordCountMap)
+    else renderKeywords(gSelectedKeywords)
+}
+
+
+function getImages() {
+    return [
         {
             "id": 1,
             "name": "1.jpg",
             "keywords": [
-                "coding",
-                "funny",
-                "man",
-                "girl"
+                "Coding",
+                "Funny",
+                "Man",
+                "Girl"
             ]
         },
         {
             "id": 2,
             "name": "2.jpg",
             "keywords": [
-                "tramp",
-                "politic",
+                "Tramp",
+                "Politic",
             ]
         },
         {
             "id": 3,
             "name": "3.jpg",
             "keywords": [
-                "animal",
-                "dog",
-                "love"
+                "Animal",
+                "Dog",
+                "Love"
             ]
         },
         {
             "id": 4,
             "name": "4.jpg",
             "keywords": [
-                "dog",
-                "love",
-                "happy",
-                "love",
-                "sleep"
+                "Dog",
+                "Love",
+                "Happy",
+                "Love",
+                "Sleep"
             ]
         },
         {
             "id": 5,
             "name": "5.jpg",
             "keywords": [
-                "happy",
-                "love",
-                "bad"
+                "kids",
+                "funny",
+                "Bad"
             ]
         },
         {
             "id": 6,
             "name": "6.jpg",
             "keywords": [
-                "smart",
-                "coding",
-                "happy"
+                "Cat",
+                "Sleep",
+                "Animal",
             ]
         },
         {
             "id": 7,
             "name": "7.jpg",
             "keywords": [
-                "politic",
-                "smart",
-                "web"
+                "Funny",
+                "Smart",
             ]
         },
         {
             "id": 8,
             "name": "8.jpg",
             "keywords": [
-                "love",
-                "smart",
-                "web"
+                "Funny",
+                "Batman",
+                "jQuery",
+                "Coding"
             ]
         },
         {
             "id": 9,
             "name": "9.jpg",
             "keywords": [
-                "smart",
-                "happy",
-                "coding"
+                "Smart",
+                "Kids",
+                "Funny",
+                "Bad"
             ]
         },
         {
             "id": 10,
             "name": "10.jpg",
             "keywords": [
-                "politic",
-                "bad",
-                "animal"
+                "Politic",
+                "Bad",
+                "Coding"
             ]
         },
         {
             "id": 11,
             "name": "11.jpg",
             "keywords": [
-                "cat",
-                "animal",
-                "politic"
+                "Man",
+                "Politic",
+                "Celeb"
             ]
         },
         {
             "id": 12,
             "name": "12.jpg",
             "keywords": [
-                "funny",
-                "web",
-                "smart"
+                "Smart",
+                "Celeb",
+                "Man"
             ]
         },
         {
             "id": 13,
             "name": "13.jpg",
             "keywords": [
-                "bad",
-                "coding",
-                "smart"
+                "Bad",
+                "Man",
+                "Funny",
+                "jQuery"
             ]
         },
         {
             "id": 14,
             "name": "14.jpg",
             "keywords": [
-                "politic",
-                "cat",
-                "bad"
+                "Kids",
+                "Funny",
+                "Happy"
             ]
         },
         {
             "id": 15,
             "name": "15.jpg",
             "keywords": [
-                "web",
-                "love",
-                "happy"
+                "Tramp",
+                "Man",
+                "Politic",
+                "Funny"
             ]
         },
         {
             "id": 16,
             "name": "16.jpg",
             "keywords": [
-                "dog",
-                "politic",
-                "bad"
+                "Kids",
+                "Funny",
+                "Happy"
             ]
         },
         {
             "id": 17,
             "name": "17.jpg",
             "keywords": [
-                "bad",
-                "politic",
-                "animal"
+                "Animal",
+                "Dog",
+                "Funny"
             ]
         },
         {
             "id": 18,
             "name": "18.jpg",
             "keywords": [
-                "love",
-                "cat",
-                "bad"
+                "Man",
+                "Politic",
+                "Happy",
+                "Obama"
             ]
         },
         {
             "id": 19,
             "name": "19.jpg",
             "keywords": [
-                "funny",
-                "animal",
-                "coding"
+                "Funny",
+                "Man",
+                "Love"
             ]
         },
         {
             "id": 20,
             "name": "20.jpg",
             "keywords": [
-                "happy",
-                "love",
-                "bad"
+                "Celeb",
+                "Man",
+                "Happy",
+                "TV"
             ]
         },
         {
             "id": 21,
             "name": "21.jpg",
             "keywords": [
-                "coding",
-                "happy",
-                "cat"
+                "Man",
+                "Celeb",
+                "TV"
             ]
         },
         {
             "id": 22,
             "name": "22.jpg",
             "keywords": [
-                "happy",
-                "bad",
-                "love"
+                "Man",
+                "Funny",
+                "TV",
+                "Celeb"
             ]
         },
         {
             "id": 23,
             "name": "23.jpg",
             "keywords": [
-                "cat",
-                "love",
-                "funny"
+                "Girl",
+                "Happy",
             ]
         },
         {
             "id": 24,
             "name": "24.jpg",
             "keywords": [
-                "smart",
-                "cat",
-                "web"
+                "Man",
+                "Funny",
+                "TV",
+                "Smart"
             ]
         },
         {
             "id": 25,
             "name": "25.jpg",
             "keywords": [
-                "coding",
-                "politic",
-                "smart"
+                "Man",
+                "Politic",
+                "Bad"
             ]
         },
         {
             "id": 26,
             "name": "26.jpg",
             "keywords": [
-                "animal",
-                "funny",
-                "smart"
+                "Kids",
+                "TV",
             ]
         },
         {
             "id": 27,
             "name": "27.jpg",
             "keywords": [
-                "web",
-                "cat",
-                "smart"
+                "Sleep",
+                "Man",
+                "Girl"
             ]
         },
         {
             "id": 28,
             "name": "28.jpg",
             "keywords": [
-                "coding",
-                "politic",
-                "web"
+                "Coding",
+                "jQuery",
+                "Funny"
             ]
         },
         {
             "id": 29,
             "name": "29.jpg",
             "keywords": [
-                "love",
-                "animal",
-                "dog"
+                "Coding",
+                "jQuery",
+                "Funny"
             ]
         }
     ]

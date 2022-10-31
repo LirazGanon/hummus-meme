@@ -1,10 +1,6 @@
 @media (min-width: 768px) {
 
-    body{
-        overflow: hidden;
-    }
-
-    .main-editor-container {
+     .main-editor-container {
         width: 80%;
         height: 80%;
         display: grid;
@@ -12,35 +8,37 @@
         gap: 10px;
     }
 
+    .main-editor {
+        height: 70vh;
+    }
+
     .text-editor {
         width: 80%;
     }
+
     .main-canvas {
         width: 100%;
     }
 
-    .main-gallery .mems-img:nth-child(6n + 1) {
-        grid-column: span 4;
-        grid-row: span 4;
-    }
-    .main-editor .top-buttons>*{
+    .main-editor .top-buttons>* {
         margin: 0 15px;
     }
+
     .editor-top,
     .editor-bottom {
         gap: 50px
     }
 
-    .big-btn.share::after{
+    .big-btn.share::after {
         content: 'Share'
     }
 
-    .big-btn.save::after{
+    .big-btn.save::after {
         content: 'Save'
     }
 
-    .big-btn.download::after{
+    .big-btn.download::after {
         content: 'Download'
     }
-    
+
 }
