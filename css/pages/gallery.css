@@ -172,6 +172,7 @@ header .nav-link:hover {
 
 .gallery-header .search-bar ion-icon {
     margin-inline-end: 15px;
+    margin-inline-start: 15px;
     font-size: 2rem;
     color: var(--clr2);
 }
