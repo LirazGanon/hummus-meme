@@ -30,7 +30,6 @@ function onKeywordClick(keyword) {
     increaseCount(keyword)
 }
 function onMoreKeywords(elArrow) {
-    console.log(elArrow)
     gIsAllKeywords = !gIsAllKeywords
     chooseKeywords()
     document.querySelector('.gallery-header').classList.toggle('open-content')
