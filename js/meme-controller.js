@@ -196,7 +196,10 @@ function onDown(ev) {
 
 function onMove(ev) {
     const pos = getEvPos(ev)
-    if (getLineClickHover(pos)) gElCanvas.style.cursor = 'grab'
+    if (getLineClickHover(pos)){
+        gElCanvas.style.cursor = 'grab'
+        renderMeme()    
+    }
     else if (findStickerIdx(pos) !== -1) gElCanvas.style.cursor = 'grab'
     else gElCanvas.style.cursor = 'auto'
     const isDrag = gCurrDarg ? gCurrDarg.isDrag : false
