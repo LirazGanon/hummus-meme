@@ -39,9 +39,7 @@
     .keywords-container .open-arrow {
         font-size: 2em;
     }
-    
-
-    
+       
     
     .main-gallery {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));

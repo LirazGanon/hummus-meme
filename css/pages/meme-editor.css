@@ -7,6 +7,8 @@
 }
 
 
+
+
 /* CANVAS */
 .main-canvas-container {
     margin-left: auto;
@@ -21,7 +23,7 @@
 
 /* EDITOR */
 .main-editor {
-    height: 80vh;
+    height: fit-content;
     background-color: rgb(67, 68, 70);
     border-radius: 30px;
     width: 95%;
@@ -30,6 +32,7 @@
     gap: 20px;
     margin: 0 auto;
 }
+
 
 .text-input {
     width: 90%;
