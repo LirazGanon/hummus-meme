@@ -274,6 +274,7 @@ function getRectPos() {
 
 function saveMeme() {
     gLineIsSelected = false
+    gStickerIsSelected = false
     document.querySelector('.tooltip .tooltiptext').classList.add('tooltip-visible')
     setTimeout(() => {
         document.querySelector('.tooltip .tooltiptext').classList.remove('tooltip-visible')
@@ -348,12 +349,15 @@ function addSavedStickers() {
 
 
 async function shareCanvas() {
+    gLineIsSelected = false
+    gStickerIsSelected = false
+    renderMeme()
     const dataUrl = gElCanvas.toDataURL();
     const blob = await (await fetch(dataUrl)).blob();
     const filesArray = [
         new File(
             [blob],
-            'animation.png',
+            'hummus-meme.png',
             {
                 type: blob.type,
                 lastModified: new Date().getTime()
@@ -364,4 +368,28 @@ async function shareCanvas() {
         files: filesArray,
     };
     navigator.share(shareData);
+    gLineIsSelected = true;
+}
+
+function deleteMeme(id) {
+    gSavedMemes.splice(id, 1)
+    _saveMemesToStorage()
+    renderSavedMemes(gSavedMemes)
+
+}
+
+function hebrewCheck(txt) {
+    if (!txt) return 
+    const he = 'אבגדהוזחטיכלמנסעפצקרשתםץן'
+    let letter = txt.charAt(0);
+    if (he.includes(letter)) setRtl(true)
+    else setRtl(false)
+}
+
+function setRtl(yep) {
+    let dir = yep ? 'rtl' : 'ltr'
+    gRtlFont = yep ? 'hebrew-bold' : null
+
+    gDirection = dir
+    document.querySelector('.text-input .mems-text').direction = dir
 }

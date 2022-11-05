@@ -23,3 +23,13 @@
     font-family: poppins-ExtraBold;
     src: url(../fonts/poppins/Poppins-ExtraBold.ttf);
 }
+
+@font-face {
+    font-family: imImpact;
+    src: url(../fonts/poppins/impact.ttf)
+}
+
+@font-face {
+    font-family: hebrew-bold;
+    src: url(../fonts/poppins/SecularOne-Regular.ttf)
+}

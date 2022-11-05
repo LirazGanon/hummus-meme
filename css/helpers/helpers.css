@@ -58,10 +58,10 @@
 
 /* FONTS */
 .Impact{
-    font-family: Impact;
+    font-family:Impact,imImpact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 .David{
-    font-family: David;
+    font-family: David, 'Arial Narrow', Helvetica;
 }
 .poppins{
     font-family: poppins-SemiBold;
@@ -71,4 +71,8 @@
 }
 .Verdana{
     font-family: Verdana;
+}
+
+.hebrew-font{
+    font-family: hebrew-bold, sans-serif;
 }

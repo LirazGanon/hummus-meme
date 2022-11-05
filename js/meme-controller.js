@@ -4,6 +4,8 @@ let gCtx
 let gCurrDarg
 let gLineIsSelected = true
 let gStartPos
+let gDirection = "ltr"
+let gRtlFont = null
 const gStickers = getStickers()
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 let gCurrPageWidth = getPageWidth()
@@ -42,6 +44,13 @@ function setCanvasWidth() {
 
 function setCanvasSize({ width, height }) {
     gElCanvas.height = (height * gElCanvas.width) / width
+    const currPageWidth = getPageWidth()
+        if (currPageWidth < 500 && gElCanvas.height > 600){
+            gElCanvas.width = 350
+            setCanvasSize(gMeme.img)
+            return
+        }
+
     if (gElCanvas.height > 780) {
         gElCanvas.width = 610
         setCanvasSize(gMeme.img)
@@ -83,6 +92,7 @@ function onSetFont(el) {
 
 function onShare() {
     // uploadImg()
+
     shareCanvas()
 }
 
@@ -114,6 +124,7 @@ function onIncreaseFont(isTrue) {
 
 function onDownloadImg(elLink) {
     gLineIsSelected = false
+    gStickerIsSelected = false
     renderMeme()
     const imgContent = gElCanvas.toDataURL()
     elLink.href = imgContent
@@ -134,6 +145,7 @@ function onLoadSavedMemeToCanvas(savedMeme) {
 function renderTextInput(textLines) {
     textLines.forEach((line, idx) => {
         let { fontSize, fillColor, text, yOffset, xOffset, strokeStyle, textAlign, font } = line
+        hebrewCheck(text)
         line.xRatio = xOffset / gElCanvas.width
         line.yRatio = yOffset / gElCanvas.height
         line.fontRatio = fontSize / gElCanvas.width
@@ -145,13 +157,14 @@ function renderTextInput(textLines) {
         gCtx.textBaseline = textAlign
         gCtx.lineJoin = 'round'
         gCtx.letterSpacing = '5px'
-        gCtx.font = `${fontSize}px ${font}`
+        gCtx.font = gRtlFont? `${fontSize}px ${gRtlFont}` : `${fontSize}px ${font}`
         if (idx === gMeme.selectedLineIdx) {
             const rectPos = getRectPos()
             gCtx.lineWidth = 3
             gCtx.setLineDash([10, 10]);
             if (gLineIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
         }
+        gCtx.direction = gDirection
         gCtx.strokeStyle = strokeStyle
         gCtx.setLineDash([]);
         gCtx.lineWidth = 7

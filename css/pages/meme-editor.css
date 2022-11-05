@@ -17,7 +17,6 @@
 }
 
 .main-canvas {
-    width: 95vw;
     border-radius: 10px;
 }
 
@@ -55,7 +54,7 @@
 
 
 .text-input {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Impact,imImpact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 
@@ -100,7 +99,7 @@
 .font-select {
     flex-basis: 40%;
     font-size: 1.5em;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Impact,imImpact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     border-radius: 6px;
 }
 
