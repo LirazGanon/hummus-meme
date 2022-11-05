@@ -50,6 +50,7 @@ header .nav-link:hover {
     border-radius: 2em;
 }
 
+
 @media (max-width: 740px) {
 
     header .main-nav {
@@ -341,3 +342,42 @@ footer.main-footer {
     border-radius: 37px;
     margin: 10px;
 }
+
+/* TOOLTIP HELPER */
+.tooltip {
+    position: relative;
+
+  }
+  
+  .tooltip .tooltiptext {
+    opacity: 0;
+    width: 120px;
+    background-color: rgb(255, 255, 150);
+    color: rgb(25, 25, 25);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 115%;
+    left: -40%;
+    margin-left: -60px;
+    width: max-content;
+    padding: 5px 10px;
+    transition: opacity 0.6s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent  rgb(255, 255, 150) transparent;
+}
+
+.tooltip-visible {
+ opacity:1 !important;
+  }

@@ -2,11 +2,12 @@
 let gElCanvas
 let gCtx
 let gCurrDarg
-let gIsSelected = true
+let gLineIsSelected = true
 let gStartPos
 const gStickers = getStickers()
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 let gCurrPageWidth = getPageWidth()
+let gStickerIsSelected = false
 
 gElCanvas = document.querySelector('.main-canvas')
 gCtx = gElCanvas.getContext('2d')
@@ -16,12 +17,12 @@ setCanvasWidth()
 renderStickersOnEditor()
 
 window.addEventListener("resize", () => {
-    console.log(gCurrPageWidth)
-    console.log(getPageWidth())
+
     if (gCurrPageWidth === getPageWidth()) return
     if (getMeme().lines.length === 0) return
     setCanvasWidth()
     setCanvasSize(gMeme.img)
+    setFontPos()
     setFontAndOffset()
     renderMeme()
 });
@@ -81,7 +82,8 @@ function onSetFont(el) {
 }
 
 function onShare() {
-    uploadImg()
+    // uploadImg()
+    shareCanvas()
 }
 
 function renderImg(img) {
@@ -90,22 +92,32 @@ function renderImg(img) {
 
 function renderStickerOnCanvas(stickers) {
     const revStickers = [...stickers].reverse()
-    revStickers.forEach(sticker => {
-        gCtx.drawImage(sticker, sticker.xOffset, sticker.yOffset, gElCanvas.width - gElCanvas.width / 2,
-            gElCanvas.height - gElCanvas.height / 2)
+    revStickers.forEach((sticker, idx) => {
+        gCtx.drawImage(sticker, sticker.xOffset, sticker.yOffset, sticker.width, sticker.width)
+        if (gStickerIsSelected) {
+            const revIdx = revStickers.length - idx - 1
+            if (revIdx === gMeme.selectedStickerIdx) {
+                gCtx.lineWidth = 3
+                gCtx.strokeStyle = 'white'
+                gCtx.setLineDash([10, 10]);
+                gCtx.strokeRect(sticker.xOffset, sticker.yOffset, sticker.width, sticker.width)
+            }
+        }
+
     })
 }
 
 function onIncreaseFont(isTrue) {
-    increaseFont(isTrue, renderMeme)
+    if (gLineIsSelected) increaseFont(isTrue, renderMeme)
+    else increaseSticker(isTrue, renderMeme)
 }
 
 function onDownloadImg(elLink) {
-    gIsSelected = false
-    renderMeme()  
+    gLineIsSelected = false
+    renderMeme()
     const imgContent = gElCanvas.toDataURL()
     elLink.href = imgContent
-    gIsSelected = true
+    gLineIsSelected = true
 }
 
 function onSaveMeme() {
@@ -122,6 +134,9 @@ function onLoadSavedMemeToCanvas(savedMeme) {
 function renderTextInput(textLines) {
     textLines.forEach((line, idx) => {
         let { fontSize, fillColor, text, yOffset, xOffset, strokeStyle, textAlign, font } = line
+        line.xRatio = xOffset / gElCanvas.width
+        line.yRatio = yOffset / gElCanvas.height
+        line.fontRatio = fontSize / gElCanvas.width
         if (!yOffset) yOffset = getLineYOffset(idx, fontSize)
         if (!text) text = 'Enter Your Text'
         gCtx.strokeStyle = 'white'
@@ -134,8 +149,8 @@ function renderTextInput(textLines) {
         if (idx === gMeme.selectedLineIdx) {
             const rectPos = getRectPos()
             gCtx.lineWidth = 3
-            gCtx.setLineDash([10,10]);
-            if (gIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
+            gCtx.setLineDash([10, 10]);
+            if (gLineIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
         }
         gCtx.strokeStyle = strokeStyle
         gCtx.setLineDash([]);
@@ -190,9 +205,8 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    if (findStickerIdx(pos) !== -1) {
-        const stickerIdx = findStickerIdx(pos)
-        gCurrDarg = gMeme.stickers[stickerIdx]
+    if (findStickerIdx(pos)) {
+        gCurrDarg = findStickerIdx(pos)
         gCurrDarg.isDrag = true
         gStartPos = pos
     }
@@ -209,7 +223,10 @@ function onMove(ev) {
         gElCanvas.style.cursor = 'grab'
         renderMeme()
     }
-    else if (findStickerIdx(pos) !== -1) gElCanvas.style.cursor = 'grab'
+    else if (findStickerIdx(pos)) {
+        gElCanvas.style.cursor = 'grab'
+        renderMeme()
+    }
     else gElCanvas.style.cursor = 'auto'
     const isDrag = gCurrDarg ? gCurrDarg.isDrag : false
     if (!isDrag) return

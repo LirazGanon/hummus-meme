@@ -5,6 +5,7 @@ _loadMemesFromStorage()
 
 let gMeme = {
     selectedLineIdx: 0,
+    selectedStickerIdx: 0,
     lines: [],
     stickers: []
 }
@@ -40,6 +41,7 @@ function addSticker({ src }, renderMeme, StickerId) {
     sticker.idx = StickerId
     sticker.xOffset = gElCanvas.width / 6
     sticker.yOffset = gElCanvas.height / 6
+    sticker.width = gElCanvas.width / 2
     const stickers = gMeme.stickers
     stickers.unshift(sticker)
     stickers[0].onload = () => {
@@ -77,9 +79,9 @@ function _createLine() {
 
 function setFontAndOffset() {
     gMeme.lines.forEach(line => {
-        line.fontSize = gElCanvas.width / 8
-        line.xOffset = getXoffset(line.textAlign)
-        line.yOffset = 0
+        line.fontSize = gElCanvas.width * line.fontRatio
+        // line.xOffset = getXoffset(line.textAlign)
+        // line.yOffset = 0
     })
 }
 
@@ -148,6 +150,13 @@ function increaseFont(isTrue, renderMeme) {
     renderMeme()
 }
 
+function increaseSticker(isTrue, renderMeme) {
+    const { selectedStickerIdx, stickers } = gMeme
+    stickers[selectedStickerIdx].width *= isTrue ? 1.05 : 0.95
+    renderMeme()
+}
+
+
 
 function getMeme() {
     return gMeme
@@ -158,6 +167,9 @@ function getLineClickHover(clickedPos) {
 
     const lineClickedIdx = findLineByPos(clickedPos)
     if (lineClickedIdx === -1) return
+
+    gStickerIsSelected = false
+    gLineIsSelected = true
 
     gMeme.selectedLineIdx = lineClickedIdx
 
@@ -193,17 +205,37 @@ function findLineByPos(clickedPos) {
 
 function findStickerIdx(clickedPos) {
     const Stickers = gMeme.stickers
-    return Stickers.findIndex(sticker => clickedPos.x > sticker.xOffset &&
-        clickedPos.x < sticker.xOffset + gElCanvas.width / 2 &&
-        clickedPos.y > sticker.yOffset && clickedPos.y < sticker.yOffset + gElCanvas.height / 2
+    const stickerIdx = Stickers.findIndex((sticker, idx) => clickedPos.x > sticker.xOffset &&
+        clickedPos.x < sticker.width + sticker.xOffset &&
+        clickedPos.y > sticker.yOffset && clickedPos.y < sticker.width + sticker.yOffset
     )
+
+    if (stickerIdx === -1) {
+        return
+    }
+
+    gMeme.selectedStickerIdx = stickerIdx
+    const selectedSticker = gMeme.stickers[stickerIdx]
+
+
+    gStickerIsSelected = true
+    gLineIsSelected = false
+
+
+    return selectedSticker
 }
 
 
 function getStickerClick(clickedPos) {
 
     const lineClickedIdx = findStickerIdx(clickedPos)
-    if (lineClickedIdx === -1) return
+    if (lineClickedIdx === -1) {
+        gStickerIsSelected = false
+        return
+    }
+
+
+    gStickerIsSelected = true
 
     gMeme.selectedStickerIdx = lineClickedIdx
 
@@ -241,9 +273,17 @@ function getRectPos() {
 
 
 function saveMeme() {
+    gLineIsSelected = false
+    document.querySelector('.tooltip .tooltiptext').classList.add('tooltip-visible')
+    setTimeout(() => {
+        document.querySelector('.tooltip .tooltiptext').classList.remove('tooltip-visible')
+    }, 1500);
+    renderMeme()
     gMeme.captureImg = gElCanvas.toDataURL()
     gSavedMemes.push(JSON.stringify(gMeme))
     _saveMemesToStorage()
+    gLineIsSelected = true
+    renderMeme()
 }
 
 function _saveMemesToStorage() {
@@ -273,12 +313,22 @@ function setSavedMeme(imgSrc, renderMeme, imgId) {
     gMeme.selectedImgId = imgId
     gMeme.img.onload = () => {
         setCanvasSize(gMeme.img)
+        setFontAndOffset()
+        setFontPos()
         focusTextLine()
         addSavedStickers()
         renderMeme()
     }
 }
 
+function setFontPos() {
+    gMeme.lines.forEach(line => {
+        if (!line.xRatio) return
+        line.xOffset = line.xRatio * gElCanvas.width
+        line.yOffset = line.yRatio * gElCanvas.height
+    })
+
+}
 
 function addSavedStickers() {
     const savedStickers = []
@@ -294,4 +344,24 @@ function addSavedStickers() {
         savedStickers.push(img)
     }
     gMeme.stickers = savedStickers
+}
+
+
+async function shareCanvas() {
+    const dataUrl = gElCanvas.toDataURL();
+    const blob = await (await fetch(dataUrl)).blob();
+    const filesArray = [
+        new File(
+            [blob],
+            'animation.png',
+            {
+                type: blob.type,
+                lastModified: new Date().getTime()
+            }
+        )
+    ];
+    const shareData = {
+        files: filesArray,
+    };
+    navigator.share(shareData);
 }
