@@ -52,7 +52,7 @@ function setCanvasSize({ width, height }) {
         }
 
     if (gElCanvas.height > 780) {
-        gElCanvas.width = 610
+        gElCanvas.width = 500
         setCanvasSize(gMeme.img)
     }
 }

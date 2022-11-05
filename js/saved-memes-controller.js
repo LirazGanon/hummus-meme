@@ -20,7 +20,7 @@ function renderSavedMemes(mems) {
     const strHTML = savedMemes.map((meme,idx) => `
     <article class="meme-preview">
     <img class="meme-preview-img" src="${meme.captureImg}" onclick="onLoadSavedMemeToCanvas(gSavedMemes[${idx}])" />
-    <div class="meme-trash-container" onclick="onDeleteMeme(${idx})">
+    <div class="meme-trash-container" onclick="onDeleteMeme(event,${idx})">
     <ion-icon class="delete-meme" name="trash-outline" ></ion-icon>
     </div>
     </article>
@@ -29,6 +29,7 @@ function renderSavedMemes(mems) {
     document.querySelector('.saved-mems-container').innerHTML = strHTML
 }
 
-function onDeleteMeme(id){
+function onDeleteMeme(ev,id){
+    ev.stopPropagation()
     deleteMeme(id)
 }

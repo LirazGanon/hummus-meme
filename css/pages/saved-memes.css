@@ -23,33 +23,49 @@ article.meme-preview{
 }
 
 .saved-mems-container .meme-trash-container{
-    position: absolute;
-    padding: 20px;
-    background-color: rgba(16, 16, 16, 0.854);
+    position: relative;
+    padding: 10px;
+    background-color: rgb(163, 154, 152);
     top: 0;
     left: 50%;
+    transform: translateX(-50%);
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
-    transform: translate(-50%,-100%);
-    opacity: 0;
+    
+    opacity: 1;
     cursor: pointer;
     border: 1px solid rgba(215, 215, 215, 0.826);
     border-top: none;
     pointer-events: none;
-
+    
     transition: 0.6s;
 }
-article.meme-preview img:hover + .meme-trash-container,
-.meme-trash-container:hover{
-    opacity: 1;
-    transform: translate(-50%,0);
-    pointer-events: all;
-}
-.meme-trash-container:hover{
-    background-color: rgb(255, 27, 27);
-    
-}
 article .delete-meme{
-    font-size: 2.5em;
+    font-size: 2em;
     border-radius: 50px;
+}
+
+@media (min-width: 768px) {
+    .saved-mems-container .meme-trash-container{
+        position: absolute;
+        opacity: 0;
+        transform: translate(-50%,-100%);
+        padding: 20px;
+        background-color: rgba(16, 16, 16, 0.854);
+    }
+
+    article .delete-meme{
+        font-size: 2.5em;
+    }
+
+    .meme-trash-container:hover{
+        background-color: rgb(255, 27, 27);   
+    }
+
+    article.meme-preview img:hover + .meme-trash-container,
+    .meme-trash-container:hover{
+        opacity: 1;
+        transform: translate(-50%,0);
+        pointer-events: all;
+    }
 }

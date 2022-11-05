@@ -1,5 +1,10 @@
 @media (min-width: 1000px) {
     
+
+    header .logo {
+
+        font-size: 1.7em;
+    }
     body {
         display: flex;
         flex-direction: column;
