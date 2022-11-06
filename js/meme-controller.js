@@ -46,15 +46,15 @@ function setCanvasSize({ width, height }) {
     gElCanvas.height = (height * gElCanvas.width) / width
     console.log(gElCanvas.height)
     const currPageWidth = getPageWidth()
-    if (currPageWidth < 500 && gElCanvas.height > 500) {
-        gElCanvas.width = currPageWidth*0.85
-        setCanvasSize(gMeme.img)
-        return
-    }
-
-    if (gElCanvas.height > 780) {
+    if (currPageWidth < 500) {
+        const currPageHeight = getPageHeight()
+        if (gElCanvas.height > currPageHeight * 0.65) {
+            gElCanvas.height = currPageHeight * 0.65
+            gElCanvas.width = (width * gElCanvas.height) / height
+        }
+    } else if (gElCanvas.height > 780) {
         gElCanvas.width = 500
-        setCanvasSize(gMeme.img)
+        gElCanvas.height = (height * gElCanvas.width) / width
     }
 }
 
