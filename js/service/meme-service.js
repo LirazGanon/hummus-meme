@@ -104,6 +104,14 @@ function deleteLine(renderMeme) {
     gMeme.selectedLineIdx = selectedLineIdx
     renderMeme()
 }
+function deleteSticker(renderMeme) {
+    let { selectedStickerIdx, stickers } = gMeme
+    // if (stickers.length === 1) return
+    stickers.splice(selectedStickerIdx, 1)
+    selectedStickerIdx = stickers.length - 1
+    gMeme.selectedStickerIdx = selectedStickerIdx
+    renderMeme()
+}
 
 function getLineYOffset(currLine, fontSize) {
     switch (currLine) {
@@ -278,6 +286,10 @@ function saveMeme() {
     document.querySelector('.tooltip .tooltiptext').classList.add('tooltip-visible')
     setTimeout(() => {
         document.querySelector('.tooltip .tooltiptext').classList.remove('tooltip-visible')
+    }, 1500);
+    document.querySelector('.save-meme-modal-mobile.tooltiptext-mobile').classList.add('tooltiptext-mobile-visible')
+    setTimeout(() => {
+        document.querySelector('.save-meme-modal-mobile.tooltiptext-mobile').classList.remove('tooltiptext-mobile-visible')
     }, 1500);
     renderMeme()
     gMeme.captureImg = gElCanvas.toDataURL()

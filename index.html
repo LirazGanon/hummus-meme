@@ -25,13 +25,15 @@
         <section class="header-content  flex space-between align-center">
 
             <div class="logo">
-                Hummus<span>Meme</span>
+                <a href="index.html" class="a-logo">
+                    Hummus<span>Meme</span>
+                </a>
             </div>
 
             <nav class="main-nav">
                 <ul class="flex clean-list">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link current-page-link">Gallery</a>
+                        <a href="#" class="nav-link nav-gallery current-page-link" onclick="onGalleryClick()">Gallery</a>
                     </li>
                     <li class="nav-item tooltip">
                         <a href="#" class="nav-link memes" onclick="onMemesClick()">Memes</a>
@@ -66,6 +68,7 @@
 
     <!-- MEMES EDITOR -->
     <main class="main-editor-container hide">
+        <span class="save-meme-modal-mobile tooltiptext-mobile">Your meme saved</span>
         <div class="main-canvas-container">
             <canvas class="main-canvas" width="600px"></canvas>
         </div>

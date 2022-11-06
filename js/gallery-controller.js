@@ -62,3 +62,17 @@ function onUploadClick() {
     document.querySelector('.file-input').click()
     onImgClick()
 }
+
+function onGalleryClick(){
+    document.querySelector('.saved-mems-container').classList.add('hide')
+    document.querySelector('.main-editor-container').classList.add('hide')
+    document.querySelector('.main-about').classList.add('hide')
+    document.querySelector('.gallery').classList.remove('hide')
+    document.querySelector('body').classList.remove('menu-open')
+
+    if(document.querySelector('.current-page-link'))
+    document.querySelector('.current-page-link').classList.remove('current-page-link')
+    document.querySelector('.nav-link.nav-gallery').classList.add('current-page-link')
+    
+    renderSavedMemes(gSavedMemes)
+}

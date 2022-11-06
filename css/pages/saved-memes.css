@@ -36,7 +36,7 @@ article.meme-preview{
     cursor: pointer;
     border: 1px solid rgba(215, 215, 215, 0.826);
     border-top: none;
-    pointer-events: none;
+
     
     transition: 0.6s;
 }
@@ -52,6 +52,7 @@ article .delete-meme{
         transform: translate(-50%,-100%);
         padding: 20px;
         background-color: rgba(16, 16, 16, 0.854);
+        pointer-events: none;
     }
 
     article .delete-meme{

@@ -45,11 +45,11 @@ function setCanvasWidth() {
 function setCanvasSize({ width, height }) {
     gElCanvas.height = (height * gElCanvas.width) / width
     const currPageWidth = getPageWidth()
-        if (currPageWidth < 500 && gElCanvas.height > 600){
-            gElCanvas.width = 350
-            setCanvasSize(gMeme.img)
-            return
-        }
+    if (currPageWidth < 500 && gElCanvas.height > 600) {
+        gElCanvas.width = 350
+        setCanvasSize(gMeme.img)
+        return
+    }
 
     if (gElCanvas.height > 780) {
         gElCanvas.width = 500
@@ -78,7 +78,8 @@ function onSwitchLines() {
 }
 
 function onDeleteLine() {
-    deleteLine(renderMeme)
+    if (gStickerIsSelected) deleteSticker(renderMeme)
+    else deleteLine(renderMeme)
 }
 
 function onAlignFont(val) {
@@ -157,7 +158,7 @@ function renderTextInput(textLines) {
         gCtx.textBaseline = textAlign
         gCtx.lineJoin = 'round'
         gCtx.letterSpacing = '5px'
-        gCtx.font = gRtlFont? `${fontSize}px ${gRtlFont}` : `${fontSize}px ${font}`
+        gCtx.font = gRtlFont ? `${fontSize}px ${gRtlFont}` : `${fontSize}px ${font}`
         if (idx === gMeme.selectedLineIdx) {
             const rectPos = getRectPos()
             gCtx.lineWidth = 3

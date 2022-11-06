@@ -1,6 +1,21 @@
 @media (min-width: 1000px) {
     
+    .tooltip .tooltiptext {
+        display: inline-block;
+    }
 
+    .tooltip-visible {
+        opacity:1 !important;
+         }
+
+         .tooltiptext-mobile {
+            display: none;
+         }
+         .tooltiptext-mobile-visible {
+            opacity:0 !important;
+             }
+
+             
     header .logo {
 
         font-size: 1.7em;
