@@ -393,6 +393,7 @@ footer.main-footer {
 }
 
 .tooltiptext-mobile {
+    display: none;
     opacity: 0;
     width: 120px;
     background-color: rgb(255, 255, 150);
@@ -414,5 +415,6 @@ footer.main-footer {
 }
 
 .tooltiptext-mobile-visible {
+    display: inline-block;
     opacity: 1 !important;
 }
