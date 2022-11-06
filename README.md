@@ -15,7 +15,7 @@ I'm a passionate web developer from Israel
 
 ## Screenshots
 
-![App Screenshot](https://i.ibb.co/MNK2Q5L/image.png)
+![App Screenshot](https://i.ibb.co/VqsBhR4/Untitled-3.png)
 
 
 ## Live Site
