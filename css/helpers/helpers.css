@@ -57,22 +57,26 @@
 }
 
 /* FONTS */
-.Impact{
-    font-family:Impact,imImpact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+.Impact {
+    font-family: Impact, imImpact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-.David{
+
+.David {
     font-family: David, 'Arial Narrow', Helvetica;
 }
-.poppins{
+
+.poppins {
     font-family: poppins-SemiBold;
 }
-.cursive{
+
+.cursive {
     font-family: cursive;
 }
-.Verdana{
+
+.Verdana {
     font-family: Verdana;
 }
 
-.hebrew-font{
+.hebrew-font {
     font-family: hebrew-bold, sans-serif;
 }

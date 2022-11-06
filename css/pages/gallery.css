@@ -28,7 +28,7 @@ header .logo span {
     color: #ff8c3a;
 }
 
-.a-logo{
+.a-logo {
     color: rgb(255, 233, 191);
 }
 
@@ -187,7 +187,7 @@ header .nav-link:hover {
 }
 
 /* keywords */
-.keywords-container{
+.keywords-container {
     position: relative;
     flex: 4;
     background-color: hsla(0, 0%, 100%, 0.4);
@@ -198,6 +198,7 @@ header .nav-link:hover {
     padding-inline-end: 10px;
     max-width: 94%;
 }
+
 .gallery-header .keywords {
     font-size: 0.5em;
     text-align: center;
@@ -225,7 +226,7 @@ header .nav-link:hover {
 .keywords-container .open-arrow {
     position: absolute;
     bottom: -5px;
-    right: 10px ;
+    right: 10px;
     font-size: 2em;
     transform: rotate(0);
     transition: transform 0.4s;
@@ -236,15 +237,16 @@ header .nav-link:hover {
 
 
 @keyframes rotate {
-	0% {
-		transform: rotate(0);
-	}
+    0% {
+        transform: rotate(0);
+    }
 
-	100% {
-		transform: rotate(180deg);
-	}
+    100% {
+        transform: rotate(180deg);
+    }
 }
-.keywords-container .open-arrow.rotate{
+
+.keywords-container .open-arrow.rotate {
     transition: transform 1.5s;
     bottom: 0;
     transform: rotate(180deg);
@@ -252,14 +254,15 @@ header .nav-link:hover {
 
 
 @keyframes rotate2 {
-	0% {
+    0% {
         transform: rotate(180deg);
-	}
-    
-	100% {
+    }
+
+    100% {
         transform: rotate(0);
     }
 }
+
 /* .move-down{
     animation: rotate2 1.5s ease 0s 1 normal backwards;
 } */
@@ -351,10 +354,10 @@ footer.main-footer {
 .tooltip {
     position: relative;
 
-  }
+}
 
 
-  .tooltip .tooltiptext {
+.tooltip .tooltiptext {
     display: none;
     opacity: 0;
     width: 120px;
@@ -371,9 +374,9 @@ footer.main-footer {
     width: max-content;
     padding: 5px 10px;
     transition: opacity 0.6s;
-  }
-  
-  .tooltip .tooltiptext::after {
+}
+
+.tooltip .tooltiptext::after {
     content: "";
     position: absolute;
     bottom: 100%;
@@ -381,14 +384,14 @@ footer.main-footer {
     margin-left: -5px;
     border-width: 10px;
     border-style: solid;
-    border-color: transparent transparent  rgb(255, 255, 150) transparent;
+    border-color: transparent transparent rgb(255, 255, 150) transparent;
 }
 
 .tooltip-visible {
- opacity:0 !important;
-  }
+    opacity: 0 !important;
+}
 
-  .tooltiptext-mobile {
+.tooltiptext-mobile {
     opacity: 0;
     width: 120px;
     background-color: rgb(255, 255, 150);
@@ -398,7 +401,7 @@ footer.main-footer {
     padding: 5px 0;
     position: fixed;
     z-index: 1;
-    top:40%;
+    top: 40%;
     left: 50%;
     transform: translate(-25%, -50%);
     margin-left: -60px;
@@ -406,9 +409,8 @@ footer.main-footer {
     padding: 5px 10px;
     transition: opacity 0.6s;
     font-size: 1.5em;
-  }
+}
 
-  .tooltiptext-mobile-visible {
-    opacity:1 !important;
-     }
-   
+.tooltiptext-mobile-visible {
+    opacity: 1 !important;
+}
