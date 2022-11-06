@@ -13,8 +13,6 @@ I'm a passionate web developer from Israel
 **Client:** vanilla javaScript, HTML 5, CSS 3
 
 
-
-
 ## Screenshots
 
 ![App Screenshot](https://i.ibb.co/MNK2Q5L/image.png)
