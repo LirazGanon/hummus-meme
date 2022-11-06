@@ -44,7 +44,6 @@ function setCanvasWidth() {
 
 function setCanvasSize({ width, height }) {
     gElCanvas.height = (height * gElCanvas.width) / width
-    console.log(gElCanvas.height)
     const currPageWidth = getPageWidth()
     if (currPageWidth < 500) {
         const currPageHeight = getPageHeight()

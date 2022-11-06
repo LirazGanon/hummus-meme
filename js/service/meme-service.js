@@ -198,14 +198,14 @@ function findLineByPos(clickedPos) {
     return gMeme.lines.findIndex(line => {
         switch (line.textAlign) {
             case 'right':
-                return clickedPos.x < (line.xOffset) && clickedPos.x > (line.xOffset - line.width) &&
-                    clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
+                return clickedPos.x < (line.xOffset + 10) && clickedPos.x > (line.xOffset - line.width) - 10 &&
+                    clickedPos.y < line.yOffset + 15 && clickedPos.y > (line.yOffset - line.fontSize + 14) - 15
             case 'left':
-                return clickedPos.x > (line.xOffset) && clickedPos.x < (line.width - line.xOffset) &&
-                    clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
+                return clickedPos.x > (line.xOffset) - 10 && clickedPos.x < (line.width - line.xOffset) + 10 &&
+                    clickedPos.y < line.yOffset + 15 && clickedPos.y > (line.yOffset - line.fontSize + 14) - 15
             default:
-                return clickedPos.x < (line.xOffset + line.width / 2) && clickedPos.x > (line.xOffset - line.width / 2) &&
-                    clickedPos.y < line.yOffset && clickedPos.y > (line.yOffset - line.fontSize + 14)
+                return clickedPos.x < (line.xOffset + line.width / 2) + 10 && clickedPos.x > (line.xOffset - line.width / 2) - 10 &&
+                    clickedPos.y < line.yOffset + 15 && clickedPos.y > (line.yOffset - line.fontSize + 14) - 15
         }
     })
 }
@@ -391,7 +391,7 @@ function deleteMeme(id) {
 }
 
 function hebrewCheck(txt) {
-    if (!txt) return 
+    if (!txt) return
     const he = 'אבגדהוזחטיכלמנסעפצקרשתםץן'
     let letter = txt.charAt(0);
     if (he.includes(letter)) setRtl(true)
