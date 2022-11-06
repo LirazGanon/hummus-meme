@@ -44,9 +44,10 @@ function setCanvasWidth() {
 
 function setCanvasSize({ width, height }) {
     gElCanvas.height = (height * gElCanvas.width) / width
+    console.log(gElCanvas.height)
     const currPageWidth = getPageWidth()
-    if (currPageWidth < 500 && gElCanvas.height > 600) {
-        gElCanvas.width = 350
+    if (currPageWidth < 500 && gElCanvas.height > 500) {
+        gElCanvas.width = currPageWidth*0.85
         setCanvasSize(gMeme.img)
         return
     }
