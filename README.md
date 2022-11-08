@@ -22,7 +22,7 @@ I'm a passionate web developer from Israel
 
 ## Live Site
 
-https://lirazganon.github.io/mems-generator/index.html
+https://lirazganon.github.io/hummus-meme/
 
 
 ## Feedback
