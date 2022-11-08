@@ -61,7 +61,7 @@ function getImages() {
             "id": 2,
             "name": "2.jpg",
             "keywords": [
-                "Tramp",
+                "Trump",
                 "Politic",
             ]
         },
@@ -181,7 +181,7 @@ function getImages() {
             "id": 15,
             "name": "15.jpg",
             "keywords": [
-                "Tramp",
+                "Trump",
                 "Man",
                 "Politic",
                 "Funny"
