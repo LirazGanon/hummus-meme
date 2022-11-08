@@ -109,11 +109,12 @@ header .nav-link:hover {
 
     ion-icon.menu-btn {
         font-size: 1.5em;
-        color: var(--clr16);
-        background-color: var(--clr11);
+        color: var(--clr15);
+        /* background-color: black; */
+        border: 2px solid var(--clr15);
         border-radius: 2em;
         padding: 7px;
-        margin-inline-end: 20px;
+        margin-inline-end: 7px;
         cursor: pointer;
     }
 
@@ -417,4 +418,15 @@ footer.main-footer {
 .tooltiptext-mobile-visible {
     display: inline-block;
     opacity: 1 !important;
+}
+
+@media (max-width:350px) {
+    header .logo {
+        font-size: 1.1em;
+    }
+
+    .main-editor .bottom-buttons .big-btn {
+        margin: 0 7px;
+    }
+
 }

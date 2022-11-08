@@ -188,8 +188,8 @@ function getLineClickHover(clickedPos) {
 }
 
 function moveShape(dx, dy) {
-    gCurrDarg.xOffset += dx
-    gCurrDarg.yOffset += dy
+    gCurrDrag.xOffset += dx
+    gCurrDrag.yOffset += dy
 
 }
 

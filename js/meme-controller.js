@@ -1,7 +1,8 @@
 'use strict'
 let gElCanvas
 let gCtx
-let gCurrDarg
+let gCurrDrag
+let gIsSizing
 let gLineIsSelected = true
 let gStartPos
 let gDirection = "ltr"
@@ -10,6 +11,7 @@ const gStickers = getStickers()
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 let gCurrPageWidth = getPageWidth()
 let gStickerIsSelected = false
+let gCirclePos = {}
 
 gElCanvas = document.querySelector('.main-canvas')
 gCtx = gElCanvas.getContext('2d')
@@ -112,6 +114,7 @@ function renderStickerOnCanvas(stickers) {
                 gCtx.strokeStyle = 'white'
                 gCtx.setLineDash([10, 10]);
                 gCtx.strokeRect(sticker.xOffset, sticker.yOffset, sticker.width, sticker.width)
+                drawArc(sticker.xOffset + sticker.width, sticker.yOffset + sticker.width)
             }
         }
 
@@ -162,9 +165,16 @@ function renderTextInput(textLines) {
         if (idx === gMeme.selectedLineIdx) {
             const rectPos = getRectPos()
             gCtx.lineWidth = 3
+            // gCtx.arc(rectPos.x, rectPos.y, 10, 0, 2 * Math.PI);
             gCtx.setLineDash([10, 10]);
-            if (gLineIsSelected) gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
+            if (gLineIsSelected) {
+                gCtx.strokeRect(rectPos.x, rectPos.y, rectPos.xOffset, rectPos.yOffset)
+                drawArc(rectPos.x + rectPos.xOffset, rectPos.y)
+            }
+
         }
+        gCtx.strokeStyle = 'white'
+        gCtx.fillStyle = fillColor
         gCtx.direction = gDirection
         gCtx.strokeStyle = strokeStyle
         gCtx.setLineDash([]);
@@ -179,6 +189,19 @@ function renderTextInput(textLines) {
         gMeme.lines[idx].width = gCtx.measureText(text).width
     })
 }
+
+function drawArc(x, y) {
+    gCtx.setLineDash([]);
+    gCtx.strokeStyle = 'black'
+    gCtx.fillStyle = 'orange'
+    gCtx.beginPath();
+    gCtx.arc(x, y, 10, 0, 2 * Math.PI);
+    gCtx.stroke()
+    gCtx.fill();
+    gCirclePos.x = x
+    gCirclePos.y = y
+}
+
 
 function setInputValue(val) {
     document.querySelector('.mems-text').value = ''
@@ -219,21 +242,42 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
+    gStartPos = pos
+
+    gIsSizing = isSizingClicked(pos)
+    if (gIsSizing) {
+    return
+    }
+
     if (findStickerIdx(pos)) {
-        gCurrDarg = findStickerIdx(pos)
-        gCurrDarg.isDrag = true
-        gStartPos = pos
+        gCurrDrag = findStickerIdx(pos)
+        gCurrDrag.isDrag = true
+        return
     }
     else if (getLineClickHover(pos)) {
-        gCurrDarg = getLineClickHover(pos)
-        gCurrDarg.isDrag = true
-        gStartPos = pos
+        gCurrDrag = getLineClickHover(pos)
+        gCurrDrag.isDrag = true
+        return
     }
+
+    gLineIsSelected = false
+    gStickerIsSelected = false
+    renderMeme()
+
+
+
 }
+
+function isSizingClicked(pos) {
+    return (pos.x < gCirclePos.x + 20 && pos.x > gCirclePos.x - 25 &&
+        pos.y < gCirclePos.y + 20 && pos.y > gCirclePos.y - 20)
+}
+
 
 function onMove(ev) {
     const pos = getEvPos(ev)
-    if (getLineClickHover(pos)) {
+    if (isSizingClicked(pos)) gElCanvas.style.cursor = 'se-resize'
+    else if (getLineClickHover(pos)) {
         gElCanvas.style.cursor = 'grab'
         renderMeme()
     }
@@ -242,18 +286,40 @@ function onMove(ev) {
         renderMeme()
     }
     else gElCanvas.style.cursor = 'auto'
-    const isDrag = gCurrDarg ? gCurrDarg.isDrag : false
-    if (!isDrag) return
-    const dx = pos.x - gStartPos.x
-    const dy = pos.y - gStartPos.y
-    moveShape(dx, dy)
-    gStartPos = pos
-    renderMeme()
+    const isDrag = gCurrDrag ? gCurrDrag.isDrag : false
+    if (isDrag) {
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveShape(dx, dy)
+        gStartPos = pos
+        renderMeme()
+    } if (gIsSizing) {
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        sizeObj(dx, dy)
+        gStartPos = pos
+        renderMeme()
+    }
 }
 
+function sizeObj(dx, dy) {
+    if (gLineIsSelected) {
+        const lineIdx = gMeme.selectedLineIdx
+        gMeme.lines[lineIdx].fontSize += (dx + dy / 4)
+        if (gMeme.lines[lineIdx].fontSize < 12) gMeme.lines[lineIdx].fontSize = 12
+    }
+    if (gStickerIsSelected) {
+        const stickerIdx = gMeme.selectedStickerIdx
+        gMeme.stickers[stickerIdx].width += (dx + dy / 4)
+        if (gMeme.stickers[stickerIdx].width < 30) gMeme.stickers[stickerIdx].width = 30
+    }
+}
+
+
 function onUp() {
-    if (!gCurrDarg) return
-    gCurrDarg.isDrag = false
+    gIsSizing = false
+    if (!gCurrDrag) return
+    gCurrDrag.isDrag = false
 }
 
 function focusTextLine() {
